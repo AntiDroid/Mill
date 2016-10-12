@@ -55,7 +55,7 @@ public class Main extends Application {
                     "-fx-border-color: red;");
             
             // load the image
-            Image image = new Image("file:res/img/p.png");
+            Image image = new Image("file:res/img/mill.png");
             
             // simple displays ImageView the image as is
             ((ImageView)rootLayout.getCenter()).setImage(image);
