@@ -35,17 +35,17 @@ public class Main extends Application {
             
             rootLayout.getLeft().setStyle("-fx-padding: 10;" + 
                     "-fx-border-style: solid inside;" + 
-                    "-fx-border-width: 2;" +
-                    "-fx-border-insets: 5;" + 
-                    "-fx-border-radius: 5;" + 
-                    "-fx-border-color: black;");
+                    "-fx-border-width: 5;" +
+                    "-fx-border-insets: 1;" + 
+                    "-fx-border-radius: 15;" + 
+                    "-fx-border-color: DarkTurquoise;");
             
             rootLayout.getRight().setStyle("-fx-padding: 10;" + 
                     "-fx-border-style: solid inside;" + 
-                    "-fx-border-width: 2;" +
-                    "-fx-border-insets: 5;" + 
-                    "-fx-border-radius: 5;" + 
-                    "-fx-border-color: gray;");
+                    "-fx-border-width: 5;" +
+                    "-fx-border-insets: 1;" + 
+                    "-fx-border-radius: 15;" + 
+                    "-fx-border-color: CornflowerBlue;");
             
             rootLayout.getCenter().setStyle("-fx-padding: 10;" + 
                     "-fx-border-style: solid inside;" + 
