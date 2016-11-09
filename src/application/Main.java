@@ -14,19 +14,20 @@ public class Main extends Application {
 
     private Stage primaryStage;
     private BorderPane rootLayout;
+    
 
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Mill");
 
-        showLayout();
+        showLayout(primaryStage);
     }
 
     /**
      * Initializes the root layout.
      */
-    public void showLayout() {
+    public void showLayout(Stage s) {
         try {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
@@ -55,10 +56,26 @@ public class Main extends Application {
                     "-fx-border-color: red;");
             
             // load the image
-            Image image = new Image("file:res/img/mill.png");
+            Image imageF = new Image("file:res/img/mill.png");
+            
+            Image imageG = new Image("file:res/img/grun.png");
+            Image imageR = new Image("file:res/img/rot.png");
             
             // simple displays ImageView the image as is
-            ((ImageView)rootLayout.getCenter()).setImage(image);
+            ((ImageView)rootLayout.getCenter()).setImage(imageF);
+            
+            int value = 9;
+            ImageView[] greenSel = new ImageView[value];
+            ImageView[] redSel = new ImageView[value];
+            
+            for(int i = 0; i < value; i++){
+            	greenSel[i] = (ImageView)loader.getNamespace().get("greenS"+(i+1));
+            	greenSel[i].setImage(imageG);
+            	
+            	redSel[i] = (ImageView)loader.getNamespace().get("redS"+(i+1));
+            	redSel[i].setImage(imageR);
+            }
+            
 
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
@@ -71,7 +88,6 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
-
     /**
      * Returns the main stage.
      * @return

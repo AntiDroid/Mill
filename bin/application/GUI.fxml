@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -31,20 +30,20 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
-               <children>
-                  <CheckBox mnemonicParsing="false" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                  <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                  <CheckBox mnemonicParsing="false" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                  <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                  <CheckBox mnemonicParsing="false" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                  <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                  <CheckBox mnemonicParsing="false" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-                  <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-                  <CheckBox mnemonicParsing="false" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
-               </children>
                <VBox.margin>
                   <Insets top="40.0" />
                </VBox.margin>
+               <children>
+                  <ImageView fx:id="greenS2" fitHeight="48.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <ImageView fx:id="greenS3" fitHeight="48.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <ImageView fx:id="greenS4" fitHeight="48.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                  <ImageView fx:id="greenS5" fitHeight="48.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                  <ImageView fx:id="greenS6" fitHeight="48.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                  <ImageView fx:id="greenS7" fitHeight="48.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                  <ImageView fx:id="greenS8" fitHeight="48.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                  <ImageView fx:id="greenS9" fitHeight="48.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                  <ImageView fx:id="greenS1" fitHeight="48.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+               </children>
             </GridPane>
          </children>
          <BorderPane.margin>
@@ -55,7 +54,7 @@
    <right>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="115.0" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" text="Spieler2">
+            <Label alignment="CENTER" text="Spieler 2">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
@@ -71,20 +70,20 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
-               <children>
-                  <CheckBox mnemonicParsing="false" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                  <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                  <CheckBox mnemonicParsing="false" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                  <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                  <CheckBox mnemonicParsing="false" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                  <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                  <CheckBox mnemonicParsing="false" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-                  <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-                  <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
-               </children>
                <VBox.margin>
                   <Insets top="40.0" />
                </VBox.margin>
+               <children>
+                  <ImageView fx:id="redS1" fitHeight="48.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <ImageView fx:id="redS2" fitHeight="48.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <ImageView fx:id="redS3" fitHeight="48.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                  <ImageView fx:id="redS4" fitHeight="48.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                  <ImageView fx:id="redS5" fitHeight="48.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                  <ImageView fx:id="redS6" fitHeight="48.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                  <ImageView fx:id="redS7" fitHeight="48.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                  <ImageView fx:id="redS8" fitHeight="48.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                  <ImageView fx:id="redS9" fitHeight="48.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+               </children>
             </GridPane>
          </children>
          <BorderPane.margin>
