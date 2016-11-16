@@ -15,7 +15,6 @@ public class Main extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
     
-
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -48,13 +47,6 @@ public class Main extends Application {
                     "-fx-border-radius: 15;" + 
                     "-fx-border-color: CornflowerBlue;");
             
-            rootLayout.getCenter().setStyle("-fx-padding: 10;" + 
-                    "-fx-border-style: solid inside;" + 
-                    "-fx-border-width: 2;" +
-                    "-fx-border-insets: 5;" + 
-                    "-fx-border-radius: 5;" + 
-                    "-fx-border-color: red;");
-            
             // load the image
             Image imageF = new Image("file:res/img/mill.png");
             
@@ -62,11 +54,18 @@ public class Main extends Application {
             Image imageR = new Image("file:res/img/rot.png");
             
             // simple displays ImageView the image as is
-            ((ImageView)rootLayout.getCenter()).setImage(imageF);
+            ((ImageView)loader.getNamespace().get("feld")).setImage(imageF);
+            ((ImageView)loader.getNamespace().get("test")).setImage(imageR);
+            ((ImageView)loader.getNamespace().get("test")).setLayoutX(120);
+            ((ImageView)loader.getNamespace().get("test")).setLayoutY(120);
             
             int value = 9;
             ImageView[] greenSel = new ImageView[value];
             ImageView[] redSel = new ImageView[value];
+        
+            
+            
+            
             
             for(int i = 0; i < value; i++){
             	greenSel[i] = (ImageView)loader.getNamespace().get("greenS"+(i+1));
@@ -75,7 +74,6 @@ public class Main extends Application {
             	redSel[i] = (ImageView)loader.getNamespace().get("redS"+(i+1));
             	redSel[i].setImage(imageR);
             }
-            
 
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
@@ -88,15 +86,9 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
-    /**
-     * Returns the main stage.
-     * @return
-     */
-    public Stage getPrimaryStage() {
-        return primaryStage;
-    }
 
     public static void main(String[] args) {
-        launch(args);
+    	
+        launch(args); 
     }
 }
