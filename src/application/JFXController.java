@@ -26,6 +26,10 @@ public class JFXController implements Initializable {
 	@FXML
 	private ImageView test;
 	
+	private boolean isRedTurn = true;
+	
+	private int counter = 9;
+	
 	Position[] pos = { new Position(0, 0, 0, 44, 70.5), new Position(0, 0, 1, 44, 249), new Position(0, 0, 2, 44, 428), new Position(0, 1, 0, 222.5, 70.5),
 			new Position(0, 2, 0, 401, 70.5), new Position(0, 2, 1, 401, 249), new Position(0, 2, 2, 401, 428), new Position(0, 1, 2, 222.5, 428),
 			new Position(1, 0, 0, 98, 125), new Position(1, 1, 0, 222.5, 125), new Position(1, 2, 0, 346, 125), new Position(1, 0, 1, 98, 249), new Position(1, 0, 2, 98, 372),
@@ -59,11 +63,21 @@ public class JFXController implements Initializable {
             @Override
             public void handle(MouseEvent t) {
             	
-            	for(int i = 0; i < pos.length; i++){
-            		if(pos[i].isInRange(t.getX(), t.getY())){
-            			test.setLayoutX(pos[i].getKoordX());
-                    	test.setLayoutY(pos[i].getKoordY());
+            	if(counter > 0){
+            	
+            		for(int i = 0; i < pos.length; i++){
+            			if(pos[i].isInRange(t.getX(), t.getY())){
+            				test.setLayoutX(pos[i].getKoordX());
+            				test.setLayoutY(pos[i].getKoordY());
+            			}
             		}
+            
+            		
+            		if(!isRedTurn)
+            		counter--;
+            	
+            		isRedTurn = !isRedTurn;
+            	
             	}
             }
             
