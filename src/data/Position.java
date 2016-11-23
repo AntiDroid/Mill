@@ -37,8 +37,9 @@ public class Position {
 		return koordX;
 	}
 	
+	//GEHT NID
 	public boolean isInRange(double posX, double posY){
-		
-		return true;
+		if(Math.abs(koordX - posX) < 10 && Math.abs(koordY - posY) < 10) return true;
+		else return false;
 	}
 }
