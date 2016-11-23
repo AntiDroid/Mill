@@ -37,4 +37,8 @@ public class Position {
 		return koordX;
 	}
 	
+	public boolean isInRange(double posX, double posY){
+		
+		return true;
+	}
 }

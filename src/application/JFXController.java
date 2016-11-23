@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import data.Position;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
 
@@ -52,10 +54,26 @@ public class JFXController implements Initializable {
         	redSel.get(i).setImage(imageR);
         }
         
+        mainPane.setOnMouseClicked(new EventHandler<MouseEvent>(){
+        	
+            @Override
+            public void handle(MouseEvent t) {
+            	
+            	for(int i = 0; i < pos.length; i++){
+            		if(pos[i].isInRange(t.getX(), t.getY())){
+            			test.setLayoutX(pos[i].getKoordX());
+                    	test.setLayoutY(pos[i].getKoordY());
+            		}
+            	}
+            }
+            
+        });
+        
         test.setImage(imageR);   
         
         
         //Testsequenz
+        /*
         (new Thread() {
 			  public void run() {
                 for (int i = 0; i < pos.length; i++){
@@ -71,6 +89,7 @@ public class JFXController implements Initializable {
                 }
 			  }
         }).start();
+        */
     }
     
     public ImageView getTest(){
