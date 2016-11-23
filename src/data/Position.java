@@ -3,9 +3,9 @@ package data;
 public class Position {
 
 	private int ebene, x, y;
-	private int koordX, koordY;
+	private double koordX, koordY;
 	
-	public Position(int ebene, int x, int y, int kX, int kY){
+	public Position(int ebene, int x, int y, double kX, double kY){
 		this.ebene = ebene;
 		this.x = x;
 		this.y = y;
@@ -29,11 +29,11 @@ public class Position {
 		return "("+ebene+", "+x+", "+y+")";
 	}
 
-	public int getKoordY() {
+	public double getKoordY() {
 		return koordY;
 	}
 
-	public int getKoordX() {
+	public double getKoordX() {
 		return koordX;
 	}
 	
