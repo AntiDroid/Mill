@@ -1,9 +1,9 @@
 package application;
-
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import data.Position;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
@@ -15,18 +15,16 @@ public class JFXController implements Initializable {
 	
 	@FXML
 	private Pane mainPane;
-	
 	@FXML
 	private List<ImageView> greenSel;
-	
 	@FXML
 	private List<ImageView> redSel;
-	
 	@FXML
 	private ImageView feld;
-	
 	@FXML
 	ImageView test;
+	
+	Position[] pos = { new Position(EBENE, X, Y, posX, posY), new Position(EBENE, X, Y, posX, posY) };
 
     @Override // This method is called by the FXMLLoader when initialization is complete
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
