@@ -32,6 +32,9 @@ public class Main extends Application {
             loader.setLocation(Main.class.getResource("GUI.fxml"));
             rootLayout = (BorderPane) loader.load();
             
+            JFXController f = (JFXController) loader.getController();
+
+            
             rootLayout.getLeft().setStyle("-fx-padding: 10;" + 
                     "-fx-border-style: solid inside;" + 
                     "-fx-border-width: 5;" +

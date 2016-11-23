@@ -22,7 +22,7 @@ public class JFXController implements Initializable {
 	@FXML
 	private ImageView feld;
 	@FXML
-	ImageView test;
+	private ImageView test;
 	
 	Position[] pos = { new Position(0, 0, 0, 44, 70.5), new Position(0, 0, 1, 44, 249), new Position(0, 0, 2, 44, 428), new Position(0, 1, 0, 222.5, 70.5),
 			new Position(0, 2, 0, 401, 70.5), new Position(0, 2, 1, 401, 249), new Position(0, 2, 2, 401, 428), new Position(0, 1, 2, 222.5, 428),
@@ -52,17 +52,29 @@ public class JFXController implements Initializable {
         	redSel.get(i).setImage(imageR);
         }
         
-        test.setImage(imageR); 
-        
-        /*
-        double x = mainPane.getBoundsInLocal().getWidth();
-        double y = mainPane.getBoundsInLocal().getHeight();
-        
-        test.setLayoutX(x/4.795918367);
-        test.setLayoutY(y/4.32);
-        */
+        test.setImage(imageR);   
         
         
+        //Testsequenz
+        (new Thread() {
+			  public void run() {
+                for (int i = 0; i < pos.length; i++){
+                    
+                	test.setLayoutX(pos[i].getKoordX());
+                	test.setLayoutY(pos[i].getKoordY());
+                	
+                	try {
+            			Thread.sleep(1000);
+            		} catch (InterruptedException e) {
+            			e.printStackTrace();
+            		}
+                }
+			  }
+        }).start();
+    }
+    
+    public ImageView getTest(){
+    	return test;
     }
 
 }
