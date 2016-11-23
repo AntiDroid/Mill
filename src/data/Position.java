@@ -39,6 +39,11 @@ public class Position {
 	
 	public boolean isInRange(double posX, double posY){
 		
-		return true;
+		int rangeDif = 5;
+		
+		if(Math.abs(koordX+20 - posX) < rangeDif && Math.abs(koordY+20 - posY) < rangeDif)
+			return true;
+		
+		return false;
 	}
 }
