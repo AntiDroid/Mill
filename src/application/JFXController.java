@@ -51,16 +51,15 @@ public class JFXController implements Initializable {
         
         test.setImage(imageR); 
         
-        test.setLayoutX(mainPane.getWidth()/4.795918367);
-        test.setLayoutY(mainPane.getHeight()/4.32);
+        /*
+        double x = mainPane.getBoundsInLocal().getWidth();
+        double y = mainPane.getBoundsInLocal().getHeight();
         
-        System.out.println(mainPane.getLayoutX());
-        System.out.println(mainPane.getMaxWidth());
-        System.out.println(mainPane.getMinWidth());
-        System.out.println(mainPane.getPrefWidth());
-        System.out.println(mainPane.getScaleX());
-        System.out.println(mainPane.getTranslateX());
-        System.out.println(mainPane.getWidth());       
+        test.setLayoutX(x/4.795918367);
+        test.setLayoutY(y/4.32);
+        */
+        
+        
     }
 
 }
