@@ -31,8 +31,6 @@ public class JFXController implements Initializable {
 
 	private boolean isRedTurn = true;
 
-	private int counter = 0;
-
 	Position[] pos = { new Position(0, 0, 0, 44, 70.5), new Position(0, 0, 1, 44, 249), new Position(0, 0, 2, 44, 428), new Position(0, 1, 0, 222.5, 70.5),
 			new Position(0, 2, 0, 401, 70.5), new Position(0, 2, 1, 401, 249), new Position(0, 2, 2, 401, 428), new Position(0, 1, 2, 222.5, 428),
 			new Position(1, 0, 0, 98, 125), new Position(1, 1, 0, 222.5, 125), new Position(1, 2, 0, 346, 125), new Position(1, 0, 1, 98, 249), new Position(1, 0, 2, 98, 372),
@@ -65,37 +63,45 @@ public class JFXController implements Initializable {
 
             @Override
             public void handle(MouseEvent t) {
-
-            	if(counter < 9){
+            	
+            	if((isRedTurn && !redGridSel.getChildren().isEmpty()) || (!isRedTurn && !greenGridSel.getChildren().isEmpty())){
+            		
             		for(int i = 0; i < pos.length; i++){
 
             			if(pos[i].isInRange(t.getX(), t.getY())){
 
             				if(!pos[i].isBelegt()){
+            					
                 				pos[i].setBelegt(true);
 
-            					if(isRedTurn){
-            						redGridSel.getChildren().remove(redSel.get(counter));
-            						mainPane.getChildren().add(redSel.get(counter));
-            						redSel.get(counter).setLayoutX(pos[i].getKoordX());
-            						redSel.get(counter).setLayoutY(pos[i].getKoordY());
+                				isRedTurn = !isRedTurn;
+                				
+            					if(!isRedTurn){
+            						
+            						int index = redGridSel.getChildren().size()-1;
+            						
+            						redGridSel.getChildren().remove(redSel.get(index));
+            						mainPane.getChildren().add(redSel.get(index));
+            						redSel.get(index).setLayoutX(pos[i].getKoordX());
+            						redSel.get(index).setLayoutY(pos[i].getKoordY());
 
             						break;
             					}
             					else{
-            						greenGridSel.getChildren().remove(greenSel.get(counter));
-            						mainPane.getChildren().add(greenSel.get(counter));
-            						greenSel.get(counter).setLayoutX(pos[i].getKoordX());
-            						greenSel.get(counter).setLayoutY(pos[i].getKoordY());
+            						
+            						int index = greenGridSel.getChildren().size()-1;
+            						
+            						greenGridSel.getChildren().remove(greenSel.get(index));
+            						mainPane.getChildren().add(greenSel.get(index));
+            						greenSel.get(index).setLayoutX(pos[i].getKoordX());
+            						greenSel.get(index).setLayoutY(pos[i].getKoordY());
 
-            						counter++;
             						break;
             					}
             				}
             			}
             		}
 
-            		isRedTurn = !isRedTurn;
             	}
 
             }
