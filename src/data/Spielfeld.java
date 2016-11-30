@@ -30,9 +30,45 @@ public class Spielfeld {
 	
 	public ArrayList<Position> movePoss(Position p){
 		ArrayList<Position> movePoss = new ArrayList<Position>();
+		int pSum = p.getEbene()+p.getX()+p.getY();
 		
+		for(int ebene = 0; ebene < 3; ebene++){
+			for(int x = 0; x < 3; x++){
+				for(int y = 0; y < 3; y++){
+					Position n = positionen[ebene][x][y];
+					int nSum = n.getEbene()+n.getX()+n.getY();
+					
+					//Summe darf sich nur um eins ändern
+					if(Math.abs(pSum - nSum) == 1){
+					
+						// Eckstein
+						if((p.getX()+p.getY())%2 == 0){
+							//Muss sich auf der gleichen Ebene Bewegen
+							if(p.getEbene() == n.getEbene()){
+								movePoss.add(n);
+							}
+						}
+						// Mittelstein
+						if((p.getX()+p.getY())%2 == 1){
+							// Gleiche Ebene
+							if(p.getEbene() == n.getEbene()){
+								movePoss.add(n);
+							}
+							// Ebenenwechsel
+							if(p.getEbene() != n.getEbene()){
+								// Darf sich nur die Ebene Ändern
+								if(p.getX() == n.getX() && p.getY() == n.getY()){
+									movePoss.add(n);
+								}
+							}
+						}	
+					}
+					
+				}
+			}
+		}
 		
-		return null;
+		return movePoss;
 	}
 	
 }
