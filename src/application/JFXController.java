@@ -73,7 +73,7 @@ public class JFXController implements Initializable {
         
         for(int i = 0; i < 5; i++){
         	for(int j = 0; j < 2; j++){
-        		if(i == 4 && j == 0)
+        		if(i == 4 && j == 1)
         			break;
         		redGridSel.add((ImageView)redSel.get(x), j, i);
         		x++;
