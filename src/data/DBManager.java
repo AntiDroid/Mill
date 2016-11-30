@@ -8,14 +8,13 @@ public class DBManager
 {
 	Connection conn;
 	
-	public DBManager() throws ClassNotFoundException, SQLException
-	{
+	public DBManager() throws ClassNotFoundException, SQLException {
 		Class.forName("com.mysql.jdbc.Driver");
 		conn = DriverManager.getConnection("jdbc:mysql://localhost/rankingsystem", "root", "");
 	}
 	
-	public void addBenutzer(int benutzerID, String vorname, String nachname, int punktezahl) throws SQLException
-	{
+	public void addBenutzer(int benutzerID, String vorname, String nachname, int punktezahl) throws SQLException {
+		
 		String sql = "INSERT INTO Benutzer VALUES(?, ?, ?, ?)";
 		java.sql.PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, benutzerID);
@@ -26,8 +25,7 @@ public class DBManager
 		stmt.close();
 	}
 	
-	public void close() throws SQLException
-	{
+	public void close() throws SQLException {
 		conn.close();
 	}
 }
