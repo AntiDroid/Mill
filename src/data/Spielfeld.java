@@ -1,5 +1,7 @@
 package data;
 
+import java.util.ArrayList;
+
 public class Spielfeld {
 
 	private Position[][][] positionen;
@@ -8,11 +10,6 @@ public class Spielfeld {
 		
 		positionen = new Position[3][3][3];
 		
-		 
-		
-		
-		
-		
 		for(int ebene = 0; ebene < 3; ebene++){
 			for(int x = 0; x < 3; x++){
 				for(int y = 0; y < 3; y++){
@@ -20,7 +17,6 @@ public class Spielfeld {
 				}
 			}
 		}
-		
 		for(int ebene = 0; ebene < 3; ebene++){
 			for(int y = 0; y < 3; y++){
 				for(int x = 0; x < 3; x++){
@@ -29,6 +25,14 @@ public class Spielfeld {
 				System.out.println();
 			}
 		}
+	}
+	
+	
+	public ArrayList<Position> movePoss(Position p){
+		ArrayList<Position> movePoss = new ArrayList<Position>();
+		
+		
+		return null;
 	}
 	
 }
