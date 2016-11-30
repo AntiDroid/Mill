@@ -98,6 +98,7 @@ public class JFXController implements Initializable {
             			if(!pos[i].isBelegt() && pos[i].isInRange(t.getX(), t.getY())){
             					
                 			pos[i].setBelegt(true);
+                			
                 			isRedTurn = !isRedTurn;
                 				
             				if(!isRedTurn){

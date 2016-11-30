@@ -5,7 +5,7 @@ public class Position {
 	private int ebene, x, y;
 	private double koordX, koordY;
 	
-	private boolean isBelegt;
+	private boolean isBelegt = false;
 	
 	public Position(int ebene, int x, int y, double kX, double kY){
 		this.ebene = ebene;
@@ -40,7 +40,7 @@ public class Position {
 	}
 	
 	public boolean isInRange(double posX, double posY){
-		if(Math.abs(koordX - posX) < 15 && Math.abs(koordY - posY) < 15) return true;
+		if(Math.abs((koordX+20) - posX) < 10 && Math.abs((koordY+20) - posY) < 10) return true;
 		else return false;
 	}
 
