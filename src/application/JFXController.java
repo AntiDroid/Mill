@@ -68,36 +68,32 @@ public class JFXController implements Initializable {
             		
             		for(int i = 0; i < pos.length; i++){
 
-            			if(pos[i].isInRange(t.getX(), t.getY())){
-
-            				if(!pos[i].isBelegt()){
+            			if(!pos[i].isBelegt() && pos[i].isInRange(t.getX(), t.getY())){
             					
-                				pos[i].setBelegt(true);
-
-                				isRedTurn = !isRedTurn;
+                			pos[i].setBelegt(true);
+                			isRedTurn = !isRedTurn;
                 				
-            					if(!isRedTurn){
+            				if(!isRedTurn){
             						
-            						int index = redGridSel.getChildren().size()-1;
-            						
-            						redGridSel.getChildren().remove(redSel.get(index));
-            						mainPane.getChildren().add(redSel.get(index));
-            						redSel.get(index).setLayoutX(pos[i].getKoordX());
-            						redSel.get(index).setLayoutY(pos[i].getKoordY());
+            					int index = redGridSel.getChildren().size()-1;
+            					
+            					redGridSel.getChildren().remove(redSel.get(index));
+            					mainPane.getChildren().add(redSel.get(index));
+            					redSel.get(index).setLayoutX(pos[i].getKoordX());
+            					redSel.get(index).setLayoutY(pos[i].getKoordY());
 
-            						break;
-            					}
-            					else{
+            					break;
+            				}
+            				else{
             						
-            						int index = greenGridSel.getChildren().size()-1;
+            					int index = greenGridSel.getChildren().size()-1;
             						
-            						greenGridSel.getChildren().remove(greenSel.get(index));
-            						mainPane.getChildren().add(greenSel.get(index));
-            						greenSel.get(index).setLayoutX(pos[i].getKoordX());
-            						greenSel.get(index).setLayoutY(pos[i].getKoordY());
+            					greenGridSel.getChildren().remove(greenSel.get(index));
+            					mainPane.getChildren().add(greenSel.get(index));
+            					greenSel.get(index).setLayoutX(pos[i].getKoordX());
+            					greenSel.get(index).setLayoutY(pos[i].getKoordY());
 
-            						break;
-            					}
+            					break;
             				}
             			}
             		}
@@ -107,25 +103,6 @@ public class JFXController implements Initializable {
             }
 
         });
-
-        //Testsequenz
-        /*
-        (new Thread() {
-			  public void run() {
-                for (int i = 0; i < pos.length; i++){
-
-                	test.setLayoutX(pos[i].getKoordX());
-                	test.setLayoutY(pos[i].getKoordY());
-
-                	try {
-            			Thread.sleep(1000);
-            		} catch (InterruptedException e) {
-            			e.printStackTrace();
-            		}
-                }
-			  }
-        }).start();
-        */
     }
 
 }
