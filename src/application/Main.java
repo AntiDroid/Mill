@@ -2,6 +2,7 @@ package application;
 
 import java.io.IOException;
 
+import data.Stein;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -32,8 +33,9 @@ public class Main extends Application {
             loader.setLocation(Main.class.getResource("GUI.fxml"));
             rootLayout = (BorderPane) loader.load();
             
-            JFXController f = (JFXController) loader.getController();
+            //JFXController f = (JFXController) loader.getController();
 
+            s.getIcons().add(Stein.getImageG()); 
             
             rootLayout.getLeft().setStyle("-fx-padding: 10;" + 
                     "-fx-border-style: solid inside;" + 

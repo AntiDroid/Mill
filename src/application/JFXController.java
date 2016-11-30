@@ -18,6 +18,8 @@ import javafx.scene.layout.Pane;
 
 public class JFXController implements Initializable {
 
+	static Image imageF = new Image("file:res/img/mill.png");
+	
 	@FXML
 	private Pane mainPane;
 	@FXML
@@ -48,9 +50,7 @@ public class JFXController implements Initializable {
         assert mainPane != null : "fx:id=\"mainPane\" was not injected: check your FXML file 'GUI.fxml'.";
 
         // initialize your logic here: all @FXML variables will have been injected
-
-
-        Image imageF = new Image("file:res/img/mill.png");
+        
         feld.setImage(imageF);
 
         for(int i = 0; i<10; i++){
@@ -85,7 +85,6 @@ public class JFXController implements Initializable {
         	redGridSel.getChildren().add( i, (ImageView)redSel.get(i) );
         }
 		*/
-        
 
         mainPane.setOnMouseClicked(new EventHandler<MouseEvent>(){
 
