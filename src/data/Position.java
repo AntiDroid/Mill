@@ -5,6 +5,8 @@ public class Position {
 	private int ebene, x, y;
 	private double koordX, koordY;
 	
+	private boolean isBelegt;
+	
 	public Position(int ebene, int x, int y, double kX, double kY){
 		this.ebene = ebene;
 		this.x = x;
@@ -40,5 +42,13 @@ public class Position {
 	public boolean isInRange(double posX, double posY){
 		if(Math.abs(koordX - posX) < 15 && Math.abs(koordY - posY) < 15) return true;
 		else return false;
+	}
+
+	public boolean isBelegt() {
+		return isBelegt;
+	}
+
+	public void setBelegt(boolean isBelegt) {
+		this.isBelegt = isBelegt;
 	}
 }
