@@ -38,29 +38,6 @@
 						<Insets top="40.0" />
 					</VBox.margin>
 					<children>
-						<ImageView fx:id="greenS4" fitHeight="48.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-						<ImageView fx:id="greenS2" fitHeight="48.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-						<ImageView fx:id="greenS1" fitHeight="48.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-						<ImageView fx:id="greenS6" fitHeight="48.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-						<ImageView fx:id="greenS5" fitHeight="48.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-						<ImageView fx:id="greenS8" fitHeight="48.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-						<ImageView fx:id="greenS7" fitHeight="48.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-						<ImageView fx:id="greenS9" fitHeight="48.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
-						<ImageView fx:id="greenS3" fitHeight="48.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-
-						<fx:define>
-							<ArrayList fx:id="greenSel">
-								<fx:reference source="greenS1" />
-								<fx:reference source="greenS2" />
-								<fx:reference source="greenS3" />
-								<fx:reference source="greenS4" />
-								<fx:reference source="greenS5" />
-								<fx:reference source="greenS6" />
-								<fx:reference source="greenS7" />
-								<fx:reference source="greenS8" />
-								<fx:reference source="greenS9" />
-							</ArrayList>
-						</fx:define>
 
 					</children>
 				</GridPane>
@@ -94,30 +71,6 @@
 						<Insets top="40.0" />
 					</VBox.margin>
 					<children>
-						<ImageView fx:id="redS1" fitHeight="48.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-						<ImageView fx:id="redS2" fitHeight="48.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-						<ImageView fx:id="redS3" fitHeight="48.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-						<ImageView fx:id="redS4" fitHeight="48.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-						<ImageView fx:id="redS5" fitHeight="48.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-						<ImageView fx:id="redS6" fitHeight="48.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-						<ImageView fx:id="redS7" fitHeight="48.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-						<ImageView fx:id="redS8" fitHeight="48.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-						<ImageView fx:id="redS9" fitHeight="48.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
-
-						<fx:define>
-							<ArrayList fx:id="redSel">
-								<fx:reference source="redS1" />
-								<fx:reference source="redS2" />
-								<fx:reference source="redS3" />
-								<fx:reference source="redS4" />
-								<fx:reference source="redS5" />
-								<fx:reference source="redS6" />
-								<fx:reference source="redS7" />
-								<fx:reference source="redS8" />
-								<fx:reference source="redS9" />
-							</ArrayList>
-						</fx:define>
-
 					</children>
 				</GridPane>
 			</children>

@@ -3,19 +3,21 @@ package data;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class Stein extends ImageView
-{
+public class Stein extends ImageView {
+	
     static Image imageG = new Image("file:res/img/grun.png");
     static Image imageR = new Image("file:res/img/rot.png");
 	
 	private boolean isRed, isThree;
-	private Image img;
 	
 	public Stein(boolean isR){
 		if(isR)
-			img = imageR;
+			this.setImage(imageR);
 		else
-			img = imageG;
+			this.setImage(imageG);
+		
+		this.setFitHeight(42);
+		this.setFitWidth(42);
 		
 		this.isRed = isR;
 		this.isThree = false;
@@ -51,14 +53,6 @@ public class Stein extends ImageView
 
 	public void setThree(boolean isThree) {
 		this.isThree = isThree;
-	}
-
-	public Image getImg() {
-		return img;
-	}
-
-	public void setImg(Image img) {
-		this.img = img;
 	}
 	
 }

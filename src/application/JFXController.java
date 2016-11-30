@@ -1,9 +1,11 @@
 package application;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import data.Position;
+import data.Stein;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -19,15 +21,14 @@ public class JFXController implements Initializable {
 	@FXML
 	private Pane mainPane;
 	@FXML
-	private List<ImageView> greenSel;
-	@FXML
-	private List<ImageView> redSel;
-	@FXML
 	private ImageView feld;
 	@FXML
 	private GridPane greenGridSel;
 	@FXML
 	private GridPane redGridSel;
+	
+	List<Stein> greenSel = new ArrayList<Stein>();
+	List<Stein> redSel = new ArrayList<Stein>();
 
 	private boolean isRedTurn = true;
 
@@ -41,23 +42,50 @@ public class JFXController implements Initializable {
     @Override // This method is called by the FXMLLoader when initialization is complete
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
 
-        assert greenSel != null : "fx:id=\"greenSel\" was not injected: check your FXML file 'GUI.fxml'.";
-        assert redSel != null : "fx:id=\"redSel\" was not injected: check your FXML file 'GUI.fxml'.";
-
+    	assert greenGridSel != null : "fx:id=\"greenGridSel\" was not injected: check your FXML file 'GUI.fxml'.";
+    	assert redGridSel != null : "fx:id=\"redGridSel\" was not injected: check your FXML file 'GUI.fxml'.";
+    	
         assert mainPane != null : "fx:id=\"mainPane\" was not injected: check your FXML file 'GUI.fxml'.";
 
         // initialize your logic here: all @FXML variables will have been injected
 
-        Image imageG = new Image("file:res/img/grun.png");
-        Image imageR = new Image("file:res/img/rot.png");
-        Image imageF = new Image("file:res/img/mill.png");
 
+        Image imageF = new Image("file:res/img/mill.png");
         feld.setImage(imageF);
 
-        for(int i = 0; i<9; i++){
-        	greenSel.get(i).setImage(imageG);
-        	redSel.get(i).setImage(imageR);
+        for(int i = 0; i<10; i++){
+        	greenSel.add(new Stein(false));
+        	redSel.add(new Stein(true));
         }
+        
+        int x = 0;
+        
+        for(int i = 0; i<5; i++){
+        	for(int j = 0; j < 2; j++){
+        		if(i == 4 && j == 1)
+        			break;
+        		greenGridSel.add((ImageView)greenSel.get(x), j, i);
+        		x++;
+        	}
+        }
+        
+        x = 0;
+        
+        for(int i = 0; i < 5; i++){
+        	for(int j = 0; j < 2; j++){
+        		if(i == 4 && j == 0)
+        			break;
+        		redGridSel.add((ImageView)redSel.get(x), j, i);
+        		x++;
+        	}
+        }
+    	
+        /*
+        for(int i = 0; i<9; i++){
+        	redGridSel.getChildren().add( i, (ImageView)redSel.get(i) );
+        }
+		*/
+        
 
         mainPane.setOnMouseClicked(new EventHandler<MouseEvent>(){
 
