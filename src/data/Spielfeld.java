@@ -16,7 +16,7 @@ import javafx.scene.layout.Pane;
 
 public class Spielfeld implements Initializable {
 	
-	private int redState, greenState;
+	private int state;
 	private Position[][][] positionen;
 	private Position posSelStein = null;
 	
@@ -55,9 +55,8 @@ public class Spielfeld implements Initializable {
 				}
 			}
 		}
-
-		redState = 0;
-		greenState = 0;
+		
+		state = 0;
 
     	assert greenGridSel != null : "fx:id=\"greenGridSel\" was not injected: check your FXML file 'GUI.fxml'.";
     	assert redGridSel != null : "fx:id=\"redGridSel\" was not injected: check your FXML file 'GUI.fxml'.";
@@ -101,53 +100,49 @@ public class Spielfeld implements Initializable {
             public void handle(MouseEvent t) {
             	
             	
+            	//Defintion des jeweiligen Teams und seiner Daten
+            	GridPane gridSel = null;
+            	List<Stein> sel = null;
             	
-            	
-            	
-            	if((isRedTurn && !redGridSel.getChildren().isEmpty()) || (!isRedTurn && !greenGridSel.getChildren().isEmpty())){
-            		
-            		for(int i = 0; i < pos.length; i++){
-
-            			if(pos[i].getBelegung() == null && pos[i].isInRange(t.getX(), t.getY())){
-                			
-                			isRedTurn = !isRedTurn;
-                				
-            				if(!isRedTurn){
-            						
-            					int index = redGridSel.getChildren().size()-1;
-            					
-            					pos[i].setBelegung(redSel.get(index));
-            					
-            					redGridSel.getChildren().remove(redSel.get(index));
-            					mainPane.getChildren().add(redSel.get(index));
-            					redSel.get(index).setLayoutX(pos[i].getKoordX());
-            					redSel.get(index).setLayoutY(pos[i].getKoordY());
-
-            					break;
-            				}
-            				else{
-            						
-            					int index = greenGridSel.getChildren().size()-1;
-            						
-            					pos[i].setBelegung(greenSel.get(index));
-            					
-            					greenGridSel.getChildren().remove(greenSel.get(index));
-            					mainPane.getChildren().add(greenSel.get(index));
-            					greenSel.get(index).setLayoutX(pos[i].getKoordX());
-            					greenSel.get(index).setLayoutY(pos[i].getKoordY());
-
-            					break;
-            				}
-            			}
-            		}
-
+            	if(isRedTurn){
+            		gridSel = redGridSel;
+            		sel = redSel;
             	}
-
+            	else{
+            		gridSel = greenGridSel;
+            		sel = greenSel;
+            	}
+            	
+            	//Statusdefinition
+        		if(!gridSel.getChildren().isEmpty())
+        			state = 0;
+        		else
+        			state = 1;
+            	
+        		
+        		//Abhandlung je nach Status
+            	switch(state){
+            	
+            	case 0: 
+            		
+            		anfangsphase(gridSel, sel, t);
+            		break;
+            		
+            	case 1:
+            		
+            		break;
+            		
+            	case 3:
+            		
+            		break;
+            	
+            	default:
+            		System.out.println("Fehler");
+            		
+            	}
             }
-
         });
     }
-	
 	
 	public ArrayList<Position> movePos(Position p){
 		ArrayList<Position> movePoss = new ArrayList<Position>();
@@ -192,34 +187,33 @@ public class Spielfeld implements Initializable {
 		return movePoss;
 	}
 
+	public void anfangsphase(GridPane gridSel, List<Stein> sel, MouseEvent t){
+		
+		for(int i = 0; i < pos.length; i++){
 
-	public int getRedState() {
-		return redState;
+			if(pos[i].getBelegung() == null && pos[i].isInRange(t.getX(), t.getY())){
+    			
+    			isRedTurn = !isRedTurn;
+				int index = gridSel.getChildren().size()-1;
+					
+				pos[i].setBelegung(sel.get(index));
+					
+				gridSel.getChildren().remove(sel.get(index));
+				mainPane.getChildren().add(sel.get(index));
+				sel.get(index).setLayoutX(pos[i].getKoordX());
+				sel.get(index).setLayoutY(pos[i].getKoordY());
+
+				break;
+				
+			}
+		}
 	}
-
-
-	public void setRedState(int redState) {
-		this.redState = redState;
-	}
-
 
 	public Position getPosSelStein() {
 		return posSelStein;
 	}
 
-
 	public void setPosSelStein(Position posSelStein) {
 		this.posSelStein = posSelStein;
 	}
-
-
-	public int getGreenState() {
-		return greenState;
-	}
-
-
-	public void setGreenState(int greenState) {
-		this.greenState = greenState;
-	}
-	
 }
