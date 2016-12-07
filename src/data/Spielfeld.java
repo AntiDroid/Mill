@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Spielfeld {
 
 	private Position[][][] positionen;
+	private Position posSelStein = null;
 	
 	public Spielfeld(){
 		

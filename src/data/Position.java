@@ -5,7 +5,7 @@ public class Position {
 	private int ebene, x, y;
 	private double koordX, koordY;
 	
-	private boolean isBelegt = false;
+	private Stein belegung = null;
 	
 	public Position(int ebene, int x, int y, double kX, double kY){
 		this.ebene = ebene;
@@ -44,11 +44,12 @@ public class Position {
 		else return false;
 	}
 
-	public boolean isBelegt() {
-		return isBelegt;
+	public Stein getBelegung() {
+		return belegung;
 	}
 
-	public void setBelegt(boolean isBelegt) {
-		this.isBelegt = isBelegt;
+	public void setBelegung(Stein belegung) {
+		this.belegung = belegung;
 	}
+	
 }
