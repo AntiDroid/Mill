@@ -5,7 +5,7 @@ public class Position {
 	private int ebene, x, y;
 	private double koordX, koordY;
 	
-	private Stein belegung = null;
+	private Stein belegung;
 	
 	public Position(int ebene, int x, int y, double kX, double kY){
 		this.ebene = ebene;
@@ -13,6 +13,7 @@ public class Position {
 		this.y = y;
 		this.koordX = kX;
 		this.koordY = kY;
+		this.belegung = null;
 	}
 
 	public int getEbene() {
