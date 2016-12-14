@@ -135,8 +135,14 @@ public class Spielfeld implements Initializable {
 	            			
 	            			//wenn das Feld belegt ist und der Klick auf das Feld war
 	            			if(pos[i].getBelegung() != null && pos[i].getBelegung().isRed() == isRedTurn && pos[i].isInRange(t.getX(), t.getY())){
-	                			posSelStein = pos[i];
-	                    		System.out.println("selected "+posSelStein.toString());
+	                			
+	            				posSelStein = pos[i];
+	            				
+	            				if(movePos().size() == 0)
+	            					posSelStein = null;
+	            				
+	            				else
+	            					System.out.println("selected "+posSelStein.toString());
 	                  
 	            				break;
 	            			}
@@ -164,13 +170,12 @@ public class Spielfeld implements Initializable {
 			if(pos[i].getBelegung() == null && pos[i].isInRange(t.getX(), t.getY())){
 				for(Position p: movePos()){
 					
-					if(p.getEbene() == pos[i].getEbene() && p.getX() == pos[i].getX() && p.getY() == pos[i].getY())	
-						
-						posSelStein.getBelegung().setLayoutX(pos[i].getKoordX());
+					if(p.equals(pos[i])){	
 						move(pos[i]);
 					
 						System.out.println("gangen");
 						break outerloop;
+					}
 				}
 				
 			}

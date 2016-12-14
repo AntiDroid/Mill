@@ -53,4 +53,11 @@ public class Position {
 		this.belegung = belegung;
 	}
 	
+	public boolean equals(Object o){
+		
+		Position x = (Position) o;
+		
+		return (this.ebene == x.ebene) && (this.x == x.x) && (this.y == x.y);
+	}
+	
 }
