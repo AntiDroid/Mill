@@ -124,15 +124,31 @@ public class Spielfeld implements Initializable {
             	switch(state){
             	
             	case 0: 
-            		
             		anfangsphase(gridSel, sel, t);
             		break;
             		
             	case 1:
+            		//1.1 auswahl des steins
+            		if(posSelStein == null){
+	            		for(int i = 0; i < pos.length; i++){
+	
+	            			if(pos[i].getBelegung() != null && pos[i].isInRange(t.getX(), t.getY())){
+	                			posSelStein = pos[i];
+	            				break;
+	            			}
+	            		}
+            		}
             		
+            		//1.2 auswahl der pos
+            		else{
+            			for(Position p: movePos(posSelStein)){
+            				System.out.println(p.getEbene()+","+p.getX()+","+p.getY());
+            			}
+            			posSelStein = null;
+            		}
             		break;
             		
-            	case 3:
+            	case 2:
             		
             		break;
             	
@@ -154,32 +170,36 @@ public class Spielfeld implements Initializable {
 					Position n = positionen[ebene][x][y];
 					int nSum = n.getEbene()+n.getX()+n.getY();
 					
-					//Summe darf sich nur um eins ï¿½ndern
-					if(Math.abs(pSum - nSum) == 1){
-					
-						// Eckstein
-						if((p.getX()+p.getY())%2 == 0){
-							//Muss sich auf der gleichen Ebene Bewegen
-							if(p.getEbene() == n.getEbene()){
-								movePoss.add(n);
-							}
-						}
-						// Mittelstein
-						if((p.getX()+p.getY())%2 == 1){
-							// Gleiche Ebene
-							if(p.getEbene() == n.getEbene()){
-								movePoss.add(n);
-							}
-							// Ebenenwechsel
-							if(p.getEbene() != n.getEbene()){
-								// Darf sich nur die Ebene ï¿½ndern
-								if(p.getX() == n.getX() && p.getY() == n.getY()){
-									movePoss.add(n);
+					// nicht in die mitte
+					if(!(n.getX() == 1 && n.getY() == 1)){
+						//Summe darf sich nur um eins ï¿½ndern
+						if(Math.abs(pSum - nSum) == 1){
+							// x oder y darf sich nicht mehr wie 1 ändern
+							if(Math.abs(p.getX() - n.getX()) <= 1 && Math.abs(p.getY() - n.getY()) <= 1){
+								// Eckstein
+								if((p.getX()+p.getY())%2 == 0){
+									//Muss sich auf der gleichen Ebene Bewegen
+									if(p.getEbene() == n.getEbene()){
+										movePoss.add(n);
+									}
+								}
+								// Mittelstein
+								if((p.getX()+p.getY())%2 == 1){
+									// Gleiche Ebene
+									if(p.getEbene() == n.getEbene()){
+										movePoss.add(n);
+									}
+									// Ebenenwechsel
+									if(p.getEbene() != n.getEbene()){
+										// Darf sich nur die Ebene ï¿½ndern
+										if(p.getX() == n.getX() && p.getY() == n.getY()){
+											movePoss.add(n);
+										}
+									}
 								}
 							}
-						}	
+						}
 					}
-					
 				}
 			}
 		}
@@ -216,4 +236,22 @@ public class Spielfeld implements Initializable {
 	public void setPosSelStein(Position posSelStein) {
 		this.posSelStein = posSelStein;
 	}
+	
+	public boolean isMuehle(boolean isRedM){
+		//Muehles in gleicher Ebene
+		for(int ebene = 0; ebene < 3; ebene++){
+			if(positionen[0][0][0].getBelegung().isRed() == isRedM && positionen[0][0][1].getBelegung().isRed() == isRedM && positionen[0][0][2].getBelegung().isRed() == isRedM) return true;
+			if(positionen[0][0][0].getBelegung().isRed() == isRedM && positionen[0][1][0].getBelegung().isRed() == isRedM && positionen[0][2][0].getBelegung().isRed() == isRedM) return true;
+			if(positionen[0][2][0].getBelegung().isRed() == isRedM && positionen[0][2][1].getBelegung().isRed() == isRedM && positionen[0][2][2].getBelegung().isRed() == isRedM) return true;
+			if(positionen[0][0][2].getBelegung().isRed() == isRedM && positionen[0][1][2].getBelegung().isRed() == isRedM && positionen[0][2][2].getBelegung().isRed() == isRedM) return true;
+		}
+		// Muehles auf dem Fadenkre
+		if(positionen[0][1][0].getBelegung().isRed() == isRedM && positionen[1][1][0].getBelegung().isRed() == isRedM && positionen[2][1][0].getBelegung().isRed() == isRedM) return true;
+		if(positionen[0][0][1].getBelegung().isRed() == isRedM && positionen[1][0][1].getBelegung().isRed() == isRedM && positionen[2][0][1].getBelegung().isRed() == isRedM) return true;
+		if(positionen[0][1][2].getBelegung().isRed() == isRedM && positionen[1][1][2].getBelegung().isRed() == isRedM && positionen[2][1][2].getBelegung().isRed() == isRedM) return true;
+		if(positionen[0][2][1].getBelegung().isRed() == isRedM && positionen[1][2][1].getBelegung().isRed() == isRedM && positionen[2][2][1].getBelegung().isRed() == isRedM) return true;
+		
+		return false;
+	}
+	
 }
