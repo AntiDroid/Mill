@@ -19,6 +19,8 @@ public class Spielfeld implements Initializable {
 	private int state;
 	private Position[][][] positionen;
 	private Position posSelStein = null;
+	private static ArrayList<Integer> redMuehleList = new ArrayList<Integer>();
+	private static ArrayList<Integer> greenMuehleList = new ArrayList<Integer>();
 	
 	static Image imageF = new Image("file:res/img/mill.png");
 	
@@ -274,18 +276,58 @@ public class Spielfeld implements Initializable {
 	}
 	
 	public boolean isMuehle(boolean isRedM){
-		//Muehles in gleicher Ebene
+		int muehleID = 0;
+		ArrayList<Integer> muehleList;
+		if(isRedM) muehleList = redMuehleList;
+		else 		muehleList = greenMuehleList;
+		
+		ArrayList<Integer> lastMuehleList = muehleList;
+		muehleList.clear();
+		
+		//Muehlen in gleicher Ebene
 		for(int ebene = 0; ebene < 3; ebene++){
-			if(positionen[0][0][0].getBelegung().isRed() == isRedM && positionen[0][0][1].getBelegung().isRed() == isRedM && positionen[0][0][2].getBelegung().isRed() == isRedM) return true;
-			if(positionen[0][0][0].getBelegung().isRed() == isRedM && positionen[0][1][0].getBelegung().isRed() == isRedM && positionen[0][2][0].getBelegung().isRed() == isRedM) return true;
-			if(positionen[0][2][0].getBelegung().isRed() == isRedM && positionen[0][2][1].getBelegung().isRed() == isRedM && positionen[0][2][2].getBelegung().isRed() == isRedM) return true;
-			if(positionen[0][0][2].getBelegung().isRed() == isRedM && positionen[0][1][2].getBelegung().isRed() == isRedM && positionen[0][2][2].getBelegung().isRed() == isRedM) return true;
+			if(positionen[0][0][0].getBelegung().isRed() == isRedM && positionen[0][0][1].getBelegung().isRed() == isRedM && positionen[0][0][2].getBelegung().isRed() == isRedM){
+				muehleID = 111+ebene;
+				muehleList.add(muehleID);}			
+			if(positionen[0][0][0].getBelegung().isRed() == isRedM && positionen[0][1][0].getBelegung().isRed() == isRedM && positionen[0][2][0].getBelegung().isRed() == isRedM){
+				muehleID = 222+ebene;
+				muehleList.add(muehleID);}			
+			if(positionen[0][2][0].getBelegung().isRed() == isRedM && positionen[0][2][1].getBelegung().isRed() == isRedM && positionen[0][2][2].getBelegung().isRed() == isRedM){
+				muehleID = 333+ebene;
+				muehleList.add(muehleID);}				
+			if(positionen[0][0][2].getBelegung().isRed() == isRedM && positionen[0][1][2].getBelegung().isRed() == isRedM && positionen[0][2][2].getBelegung().isRed() == isRedM){
+				muehleID = 444+ebene;
+				muehleList.add(muehleID);}		
 		}
-		// Muehles auf dem Fadenkre
-		if(positionen[0][1][0].getBelegung().isRed() == isRedM && positionen[1][1][0].getBelegung().isRed() == isRedM && positionen[2][1][0].getBelegung().isRed() == isRedM) return true;
-		if(positionen[0][0][1].getBelegung().isRed() == isRedM && positionen[1][0][1].getBelegung().isRed() == isRedM && positionen[2][0][1].getBelegung().isRed() == isRedM) return true;
-		if(positionen[0][1][2].getBelegung().isRed() == isRedM && positionen[1][1][2].getBelegung().isRed() == isRedM && positionen[2][1][2].getBelegung().isRed() == isRedM) return true;
-		if(positionen[0][2][1].getBelegung().isRed() == isRedM && positionen[1][2][1].getBelegung().isRed() == isRedM && positionen[2][2][1].getBelegung().isRed() == isRedM) return true;
+		// Muehlen auf dem Fadenkreuz
+		if(positionen[0][1][0].getBelegung().isRed() == isRedM && positionen[1][1][0].getBelegung().isRed() == isRedM && positionen[2][1][0].getBelegung().isRed() == isRedM){
+			muehleID = 1;
+			muehleList.add(muehleID);}		
+		if(positionen[0][0][1].getBelegung().isRed() == isRedM && positionen[1][0][1].getBelegung().isRed() == isRedM && positionen[2][0][1].getBelegung().isRed() == isRedM){
+			muehleID = 2;
+			muehleList.add(muehleID);}		
+		if(positionen[0][1][2].getBelegung().isRed() == isRedM && positionen[1][1][2].getBelegung().isRed() == isRedM && positionen[2][1][2].getBelegung().isRed() == isRedM){
+			muehleID = 3;
+			muehleList.add(muehleID);}		
+		if(positionen[0][2][1].getBelegung().isRed() == isRedM && positionen[1][2][1].getBelegung().isRed() == isRedM && positionen[2][2][1].getBelegung().isRed() == isRedM){
+			muehleID = 4; 
+			muehleList.add(muehleID);}		
+		
+		if(isRedM) redMuehleList = muehleList;
+		else 		greenMuehleList = muehleList;
+		
+		for (int i = 0; i < muehleList.size(); i++) {
+			if(!lastMuehleList.contains(muehleList.get(i))){
+				System.out.println("MUEHLE!");
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	public boolean isFree(Position p){
+		
 		
 		return false;
 	}
