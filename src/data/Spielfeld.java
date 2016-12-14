@@ -99,7 +99,6 @@ public class Spielfeld implements Initializable {
             @Override
             public void handle(MouseEvent t) {
             	
-            	
             	//Defintion des jeweiligen Teams und seiner Daten
             	GridPane gridSel = null;
             	List<Stein> sel = null;
@@ -131,38 +130,62 @@ public class Spielfeld implements Initializable {
             		//1.1 auswahl des steins
             		if(posSelStein == null){
 	            		for(int i = 0; i < pos.length; i++){
-	
-	            			if(pos[i].getBelegung() != null && pos[i].isInRange(t.getX(), t.getY())){
+	            			
+	            			//wenn das Feld belegt ist und der Klick auf das Feld war
+	            			if(pos[i].getBelegung() != null && pos[i].getBelegung().isRed() == isRedTurn && pos[i].isInRange(t.getX(), t.getY())){
 	                			posSelStein = pos[i];
+	                    		System.out.println("selected "+posSelStein.toString());
+	                  
 	            				break;
 	            			}
 	            		}
             		}
             		
-            		//1.2 auswahl der pos
+            		//1.2 Verschieben auf ausgewählte Position
             		else{
-            			for(Position p: movePos(posSelStein)){
-            				System.out.println(p.getEbene()+","+p.getX()+","+p.getY());
-            			}
-            			posSelStein = null;
+            			System.out.println("go");
+            			verschieben(t);
             		}
             		break;
-            		
-            	case 2:
-            		
-            		break;
-            	
-            	default:
-            		System.out.println("Fehler");
             		
             	}
             }
         });
     }
 	
-	public ArrayList<Position> movePos(Position p){
+    public void verschieben(MouseEvent t) {
+		
+    	outerloop:
+		for(int i = 0; i < pos.length; i++){
+			
+			//wenn das Feld leer ist und ausgewählt wurde
+			if(pos[i].getBelegung() == null && pos[i].isInRange(t.getX(), t.getY())){
+				for(Position p: movePos()){
+					
+					if(p.getEbene() == pos[i].getEbene() && p.getX() == pos[i].getX() && p.getY() == pos[i].getY())	
+						
+						posSelStein.getBelegung().setLayoutX(pos[i].getKoordX());
+						move(pos[i]);
+					
+						System.out.println("gangen");
+						break outerloop;
+				}
+				
+			}
+			
+		}
+    
+    	isRedTurn = !isRedTurn;
+	}
+
+	public ArrayList<Position> movePos(){
 		ArrayList<Position> movePoss = new ArrayList<Position>();
-		int pSum = p.getEbene()+p.getX()+p.getY();
+		
+		int pEbene = posSelStein.getEbene();
+		int pX = posSelStein.getX();
+		int pY = posSelStein.getY();
+		
+		int pSum = pEbene + pX + pY;
 		
 		for(int ebene = 0; ebene < 3; ebene++){
 			for(int x = 0; x < 3; x++){
@@ -170,41 +193,54 @@ public class Spielfeld implements Initializable {
 					Position n = positionen[ebene][x][y];
 					int nSum = n.getEbene()+n.getX()+n.getY();
 					
-					// nicht in die mitte
-					if(!(n.getX() == 1 && n.getY() == 1)){
-						//Summe darf sich nur um eins �ndern
-						if(Math.abs(pSum - nSum) == 1){
-							// x oder y darf sich nicht mehr wie 1 �ndern
-							if(Math.abs(p.getX() - n.getX()) <= 1 && Math.abs(p.getY() - n.getY()) <= 1){
-								// Eckstein
-								if((p.getX()+p.getY())%2 == 0){
-									//Muss sich auf der gleichen Ebene Bewegen
-									if(p.getEbene() == n.getEbene()){
-										movePoss.add(n);
-									}
-								}
-								// Mittelstein
-								if((p.getX()+p.getY())%2 == 1){
-									// Gleiche Ebene
-									if(p.getEbene() == n.getEbene()){
-										movePoss.add(n);
-									}
-									// Ebenenwechsel
-									if(p.getEbene() != n.getEbene()){
-										// Darf sich nur die Ebene �ndern
-										if(p.getX() == n.getX() && p.getY() == n.getY()){
-											movePoss.add(n);
-										}
-									}
-								}
+					//Summe darf sich nur um eins �ndern
+					if(Math.abs(pSum - nSum) == 1){
+					
+						// Eckstein
+						if((pX+pY)%2 == 0){
+							//Muss sich auf der gleichen Ebene Bewegen
+							if(pEbene == n.getEbene()){
+								movePoss.add(n);
 							}
 						}
+						// Mittelstein
+						if((pX+pY)%2 == 1){
+							// Gleiche Ebene
+							if(pEbene == n.getEbene()){
+								movePoss.add(n);
+							}
+							// Ebenenwechsel
+							if(pEbene != n.getEbene()){
+								// Darf sich nur die Ebene �ndern
+								if(pX == n.getX() && pY == n.getY()){
+									movePoss.add(n);
+								}
+							}
+						}	
 					}
+					
 				}
 			}
 		}
 		
+		for(int i = movePoss.size(); i == 0; i--){
+			if(movePoss.get(i-1).getBelegung() != null)
+				movePoss.remove(i-1);
+		}
+		
 		return movePoss;
+	}
+	
+	public void move(Position p){
+		
+		posSelStein.getBelegung().setLayoutX(p.getKoordX());
+		posSelStein.getBelegung().setLayoutY(p.getKoordY());
+		
+		Stein cur = posSelStein.getBelegung();
+		posSelStein.setBelegung(null);
+		p.setBelegung(cur);
+	
+		posSelStein = null;
 	}
 
 	public void anfangsphase(GridPane gridSel, List<Stein> sel, MouseEvent t){
