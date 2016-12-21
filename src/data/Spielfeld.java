@@ -140,9 +140,12 @@ public class Spielfeld implements Initializable {
 	            				
 	            				if(movePos().size() == 0)
 	            					posSelStein = null;
-	            				else
-	            					System.out.println("selected "+posSelStein.toString());
-	                  
+	            				else{
+	            					System.out.println("\nselected "+posSelStein.toString());
+	            					for(Position p: movePos()){
+	            						System.out.println(p);
+	            					}
+	            				}
 	            				break;
 	            			}
 	            		}
@@ -185,53 +188,57 @@ public class Spielfeld implements Initializable {
 	}
 
 	public ArrayList<Position> movePos(){
+		
 		ArrayList<Position> movePoss = new ArrayList<Position>();
 		
-		int pEbene = posSelStein.getEbene();
-		int pX = posSelStein.getX();
-		int pY = posSelStein.getY();
+		int curEbene = posSelStein.getEbene();
+		int curX = posSelStein.getX();
+		int curY = posSelStein.getY();
 		
-		int pSum = pEbene + pX + pY;
+		int pSum = curEbene + curX + curY;
 		
 		for(int ebene = 0; ebene < 3; ebene++){
+			
 			for(int x = 0; x < 3; x++){
+				
 				for(int y = 0; y < 3; y++){
-					Position n = positionen[ebene][x][y];
-					int nSum = n.getEbene()+n.getX()+n.getY();
 					
-					//Summe darf sich nur um eins �ndern
-					if(Math.abs(pSum - nSum) == 1){
+					Position n = positionen[ebene][x][y];
+					
+					//Wenn die zu prüfende Position NICHT belegt ist
+					if(n.getBelegung() == null && !(x == 1 && y == 1)){
 					
 						// Eckstein
-						if((pX+pY)%2 == 0){
+						if((curX+curY)%2 == 0){
 							//Muss sich auf der gleichen Ebene Bewegen
-							if(pEbene == n.getEbene()){
-								movePoss.add(n);
+							if(curEbene == n.getEbene()){
+								if(Math.abs(curX - x) == 1 && (curY - y) == 0)
+									movePoss.add(n);
+								else if(Math.abs(curY - y) == 1 && (curX - x) == 0)
+									movePoss.add(n);
 							}
 						}
 						// Mittelstein
-						if((pX+pY)%2 == 1){
+						else {
 							// Gleiche Ebene
-							if(pEbene == n.getEbene()){
-								movePoss.add(n);
+							if(curEbene == n.getEbene()){
+								if(Math.abs(curX - x) == 1 && (curY - y) == 0)
+									movePoss.add(n);
+								else if(Math.abs(curY - y) == 1 && (curX - x) == 0)
+									movePoss.add(n);
 							}
 							// Ebenenwechsel
-							if(pEbene != n.getEbene()){
+							else {
 								// Darf sich nur die Ebene �ndern
-								if(pX == n.getX() && pY == n.getY()){
+								if(curX == n.getX() && curY == n.getY() && Math.abs(curEbene-ebene) == 1)
 									movePoss.add(n);
-								}
 							}
-						}	
+						}
+						
+						
 					}
-					
 				}
 			}
-		}
-		
-		for(int i = movePoss.size(); i == 0; i--){
-			if(movePoss.get(i-1).getBelegung() != null)
-				movePoss.remove(i-1);
 		}
 		
 		return movePoss;
