@@ -140,7 +140,6 @@ public class Spielfeld implements Initializable {
 	            				
 	            				if(movePos().size() == 0)
 	            					posSelStein = null;
-	            				
 	            				else
 	            					System.out.println("selected "+posSelStein.toString());
 	                  
@@ -151,7 +150,7 @@ public class Spielfeld implements Initializable {
             		
             		//1.2 Verschieben auf ausgewählte Position
             		else{
-            			System.out.println("go");
+            			System.out.println("mögliche Auswahl");
             			verschieben(t);
             		}
             		break;
@@ -173,7 +172,7 @@ public class Spielfeld implements Initializable {
 					if(p.equals(pos[i])){	
 						move(pos[i]);
 					
-						System.out.println("gangen");
+						System.out.println("Position geändert!");
 						break outerloop;
 					}
 				}
@@ -240,14 +239,20 @@ public class Spielfeld implements Initializable {
 	
 	public void move(Position p){
 		
-		posSelStein.getBelegung().setLayoutX(p.getKoordX());
-		posSelStein.getBelegung().setLayoutY(p.getKoordY());
+		int curX = (int) posSelStein.getBelegung().getLayoutX();
+		int curY = (int) posSelStein.getBelegung().getLayoutY();
 		
-		Stein cur = posSelStein.getBelegung();
+		int destX = (int) p.getKoordX();
+		int destY = (int) p.getKoordY();
+	    
+		posSelStein.getBelegung().setLayoutX(destX);
+		posSelStein.getBelegung().setLayoutY(destY);
+		
+		p.setBelegung(posSelStein.getBelegung());
 		posSelStein.setBelegung(null);
-		p.setBelegung(cur);
 	
 		posSelStein = null;
+		
 	}
 
 	public void anfangsphase(GridPane gridSel, List<Stein> sel, MouseEvent t){
