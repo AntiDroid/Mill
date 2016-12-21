@@ -353,7 +353,7 @@ public class Spielfeld implements Initializable {
 		
 		if(isRedM) redMuehleList = muehleList;
 		else 		greenMuehleList = muehleList;
-		
+		 
 		for (int i = 0; i < muehleList.size(); i++) {
 			if(!lastMuehleList.contains(muehleList.get(i))){
 				System.out.println("MUEHLE!");
