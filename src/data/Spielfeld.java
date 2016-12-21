@@ -47,17 +47,6 @@ public class Spielfeld implements Initializable {
     @Override // This method is called by the FXMLLoader when initialization is complete
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
     	
-    	/*
-		positionen = new Position[3][3][3];
-		
-		for(int ebene = 0; ebene < 3; ebene++){
-			for(int x = 0; x < 3; x++){
-				for(int y = 0; y < 3; y++){
-					positionen[ebene][x][y] = new Position(ebene, x, y, 5, 5);
-				}
-			}
-		}
-		*/
 		state = 0;
 
     	assert greenGridSel != null : "fx:id=\"greenGridSel\" was not injected: check your FXML file 'GUI.fxml'.";
@@ -117,9 +106,12 @@ public class Spielfeld implements Initializable {
             	//Statusdefinition
         		if(!gridSel.getChildren().isEmpty())
         			state = 0;
-        		else
+        		else if (isMuehle(!isRedTurn)){
+        			state = 2;
+        		}
+        		else {
         			state = 1;
-            	
+        		}
         		
         		//Abhandlung je nach Status
             	switch(state){
@@ -151,15 +143,28 @@ public class Spielfeld implements Initializable {
             		//1.2 Verschieben auf ausgewählte Position
             		else{
             			verschieben(t);
+            			
+                    	if(isMuehle(!isRedTurn))
+                    		System.out.println("Mühle");
+                    	
             		}
-            		
-                	if(isMuehle(true)){
-                		System.out.println("Muehle Rot");
-                	}
-                	if(isMuehle(false)){
-                		System.out.println("Muehle Gruen");
-                	}
                 	
+            		break;
+            		
+            	case 2: 
+            		
+	            	for(int i = 0; i < pos.length; i++){
+	            			
+	            		//wenn das Feld belegt ist und der Klick auf das Feld war
+	            		if(pos[i].getBelegung() != null && pos[i].getBelegung().isRed() == isRedTurn && pos[i].isInRange(t.getX(), t.getY()) && pos[i].getBelegung().isRed() == isRedTurn){
+	            				
+	            			sel.remove(pos[i].getBelegung());
+	            			pos[i].setBelegung(null);
+	            			
+	            			break;
+	            		}
+	            	}
+            		
             		break;
             		
             	}
