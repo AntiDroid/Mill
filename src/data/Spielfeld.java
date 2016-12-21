@@ -17,7 +17,6 @@ import javafx.scene.layout.Pane;
 public class Spielfeld implements Initializable {
 	
 	private int state;
-	private Position[][][] positionen;
 	private Position posSelStein = null;
 	private static ArrayList<Integer> redMuehleList = new ArrayList<Integer>();
 	private static ArrayList<Integer> greenMuehleList = new ArrayList<Integer>();
@@ -48,6 +47,7 @@ public class Spielfeld implements Initializable {
     @Override // This method is called by the FXMLLoader when initialization is complete
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
     	
+    	/*
 		positionen = new Position[3][3][3];
 		
 		for(int ebene = 0; ebene < 3; ebene++){
@@ -57,7 +57,7 @@ public class Spielfeld implements Initializable {
 				}
 			}
 		}
-		
+		*/
 		state = 0;
 
     	assert greenGridSel != null : "fx:id=\"greenGridSel\" was not injected: check your FXML file 'GUI.fxml'.";
@@ -153,7 +153,7 @@ public class Spielfeld implements Initializable {
             		
             		//1.2 Verschieben auf ausgewählte Position
             		else{
-            			System.out.println("mögliche Auswahl");
+            			System.out.println("Verschieben beginnt!");
             			verschieben(t);
             		}
             		break;
@@ -169,7 +169,7 @@ public class Spielfeld implements Initializable {
 		for(int i = 0; i < pos.length; i++){
 			
 			//wenn das Feld leer ist und ausgewählt wurde
-			if(pos[i].getBelegung() == null && pos[i].isInRange(t.getX(), t.getY())){
+			if(pos[i].isInRange(t.getX(), t.getY())){
 				for(Position p: movePos()){
 					
 					if(p.equals(pos[i])){	
@@ -195,19 +195,20 @@ public class Spielfeld implements Initializable {
 		int curX = posSelStein.getX();
 		int curY = posSelStein.getY();
 		
-		int pSum = curEbene + curX + curY;
-		
 		for(int ebene = 0; ebene < 3; ebene++){
 			
 			for(int x = 0; x < 3; x++){
 				
 				for(int y = 0; y < 3; y++){
 					
-					Position n = positionen[ebene][x][y];
+					if(x == 1 && y == 1)
+							continue;
 					
-					//Wenn die zu prüfende Position NICHT belegt ist
-					if(n.getBelegung() == null && !(x == 1 && y == 1)){
+					Position n = getPosition(ebene, x, y);
 					
+					//Wenn die zu prüfende Position NICHT belegt ist und KEINE Mitte
+					if(n.getBelegung() == null){
+
 						// Eckstein
 						if((curX+curY)%2 == 0){
 							//Muss sich auf der gleichen Ebene Bewegen
@@ -267,10 +268,11 @@ public class Spielfeld implements Initializable {
 		for(int i = 0; i < pos.length; i++){
 
 			if(pos[i].getBelegung() == null && pos[i].isInRange(t.getX(), t.getY())){
-    			
-    			isRedTurn = !isRedTurn;
+    		
 				int index = gridSel.getChildren().size()-1;
 					
+				System.out.println(pos[i]);
+				
 				pos[i].setBelegung(sel.get(index));
 					
 				gridSel.getChildren().remove(sel.get(index));
@@ -278,6 +280,7 @@ public class Spielfeld implements Initializable {
 				sel.get(index).setLayoutX(pos[i].getKoordX());
 				sel.get(index).setLayoutY(pos[i].getKoordY());
 
+    			isRedTurn = !isRedTurn;
 				break;
 				
 			}
@@ -292,6 +295,7 @@ public class Spielfeld implements Initializable {
 		this.posSelStein = posSelStein;
 	}
 	
+	/*
 	public boolean isMuehle(boolean isRedM){
 		int muehleID = 0;
 		ArrayList<Integer> muehleList;
@@ -358,11 +362,15 @@ public class Spielfeld implements Initializable {
 		
 		return false;
 	}
-	
-	public boolean isFree(Position p){
+	*/
+	public Position getPosition(int ebene, int x, int y){
 		
+		for(Position p: pos){
+			if(p.getEbene() == ebene && p.getX() == x && p.getY() == y)
+				return p;
+		}
 		
-		return false;
+		return null;
 	}
 	
 }
