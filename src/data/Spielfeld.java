@@ -126,6 +126,10 @@ public class Spielfeld implements Initializable {
             	
             	case 0: 
             		anfangsphase(gridSel, sel, t);
+
+                	isMuehle(true);
+                	isMuehle(false);
+            		
             		break;
             		
             	case 1:
