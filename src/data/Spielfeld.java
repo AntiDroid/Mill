@@ -156,6 +156,14 @@ public class Spielfeld implements Initializable {
             			System.out.println("Verschieben beginnt!");
             			verschieben(t);
             		}
+            		
+                	if(isMuehle(true)){
+                		System.out.println("Muehle Rot");
+                	}
+                	if(isMuehle(false)){
+                		System.out.println("Muehle Gruen");
+                	}
+                	
             		break;
             		
             	}
@@ -295,57 +303,57 @@ public class Spielfeld implements Initializable {
 		this.posSelStein = posSelStein;
 	}
 	
-	/*
+	
 	public boolean isMuehle(boolean isRedM){
 		int muehleID = 0;
 		ArrayList<Integer> muehleList;
 		if(isRedM) muehleList = redMuehleList;
 		else 		muehleList = greenMuehleList;
 		
-		ArrayList<Integer> lastMuehleList = muehleList;
+		ArrayList<Integer> lastMuehleList = (ArrayList<Integer>) muehleList.clone();
 		muehleList.clear();
 		
 		//Muehlen in gleicher Ebene
 		for(int e = 0; e < 3; e++){
-			if(positionen[e][0][0].getBelegung() != null && positionen[e][0][1].getBelegung() != null && positionen[e][0][2].getBelegung() != null ){
-				if(positionen[e][0][0].getBelegung().isRed() == isRedM && positionen[e][0][1].getBelegung().isRed() == isRedM && positionen[e][0][2].getBelegung().isRed() == isRedM){
+			if(getPosition(e,0,0).getBelegung() != null && getPosition(e,0,1).getBelegung() != null && getPosition(e,0,2).getBelegung() != null ){
+				if(getPosition(e,0,0).getBelegung().isRed() == isRedM && getPosition(e,0,1).getBelegung().isRed() == isRedM && getPosition(e,0,2).getBelegung().isRed() == isRedM){
 					muehleID = 10+e;
 					muehleList.add(muehleID);}	
 			}
-			if(positionen[e][0][0].getBelegung() != null && positionen[e][1][0].getBelegung() != null && positionen[e][2][0].getBelegung() != null ){
-				if(positionen[e][0][0].getBelegung().isRed() == isRedM && positionen[e][1][0].getBelegung().isRed() == isRedM && positionen[e][2][0].getBelegung().isRed() == isRedM){
+			if(getPosition(e,0,0).getBelegung() != null && getPosition(e,1,0).getBelegung() != null && getPosition(e,2,0).getBelegung() != null ){
+				if(getPosition(e,0,0).getBelegung().isRed() == isRedM && getPosition(e,1,0).getBelegung().isRed() == isRedM && getPosition(e,2,0).getBelegung().isRed() == isRedM){
 					muehleID = 20+e;
 					muehleList.add(muehleID);}	
 			}
-			if(positionen[e][2][0].getBelegung() != null && positionen[e][2][1].getBelegung() != null && positionen[e][2][2].getBelegung() != null ){
-				if(positionen[e][2][0].getBelegung().isRed() == isRedM && positionen[e][2][1].getBelegung().isRed() == isRedM && positionen[e][2][2].getBelegung().isRed() == isRedM){
+			if(getPosition(e,2,0).getBelegung() != null && getPosition(e,2,1).getBelegung() != null && getPosition(e,2,2).getBelegung() != null ){
+				if(getPosition(e,2,0).getBelegung().isRed() == isRedM && getPosition(e,2,1).getBelegung().isRed() == isRedM && getPosition(e,2,2).getBelegung().isRed() == isRedM){
 					muehleID = 30+e;
 					muehleList.add(muehleID);}	
 			}
-			if(positionen[e][0][2].getBelegung() != null && positionen[e][1][2].getBelegung() != null && positionen[e][2][2].getBelegung() != null ){
-				if(positionen[e][0][2].getBelegung().isRed() == isRedM && positionen[e][1][2].getBelegung().isRed() == isRedM && positionen[e][2][2].getBelegung().isRed() == isRedM){
+			if(getPosition(e,0,2).getBelegung() != null && getPosition(e,1,2).getBelegung() != null && getPosition(e,2,2).getBelegung() != null ){
+				if(getPosition(e,0,2).getBelegung().isRed() == isRedM && getPosition(e,1,2).getBelegung().isRed() == isRedM && getPosition(e,2,2).getBelegung().isRed() == isRedM){
 					muehleID = 40+e;
 					muehleList.add(muehleID);}		
 			}
 		}
 		// Muehlen auf dem Fadenkreuz
-		if(positionen[0][1][0].getBelegung() != null && positionen[1][1][0].getBelegung() != null && positionen[2][1][0].getBelegung() != null ){
-			if(positionen[0][1][0].getBelegung().isRed() == isRedM && positionen[1][1][0].getBelegung().isRed() == isRedM && positionen[2][1][0].getBelegung().isRed() == isRedM){
+		if(getPosition(0,1,0).getBelegung() != null && getPosition(1,1,0).getBelegung() != null && getPosition(2,1,0).getBelegung() != null ){
+			if(getPosition(0,1,0).getBelegung().isRed() == isRedM && getPosition(1,1,0).getBelegung().isRed() == isRedM && getPosition(2,1,0).getBelegung().isRed() == isRedM){
 				muehleID = 1;
 				muehleList.add(muehleID);}		
 		}
-		if(positionen[0][0][1].getBelegung() != null && positionen[1][0][1].getBelegung() != null && positionen[2][0][1].getBelegung() != null ){
-			if(positionen[0][0][1].getBelegung().isRed() == isRedM && positionen[1][0][1].getBelegung().isRed() == isRedM && positionen[2][0][1].getBelegung().isRed() == isRedM){
+		if(getPosition(0,0,1).getBelegung() != null && getPosition(1,0,1).getBelegung() != null && getPosition(2,0,1).getBelegung() != null ){
+			if(getPosition(0,0,1).getBelegung().isRed() == isRedM && getPosition(1,0,1).getBelegung().isRed() == isRedM && getPosition(2,0,1).getBelegung().isRed() == isRedM){
 				muehleID = 2;
 				muehleList.add(muehleID);}
 		}
-		if(positionen[0][1][2].getBelegung() != null && positionen[1][1][2].getBelegung() != null && positionen[2][1][2].getBelegung() != null ){
-			if(positionen[0][1][2].getBelegung().isRed() == isRedM && positionen[1][1][2].getBelegung().isRed() == isRedM && positionen[2][1][2].getBelegung().isRed() == isRedM){
+		if(getPosition(0,1,2).getBelegung() != null && getPosition(1,1,2).getBelegung() != null && getPosition(2,1,2).getBelegung() != null ){
+			if(getPosition(0,1,2).getBelegung().isRed() == isRedM && getPosition(1,1,2).getBelegung().isRed() == isRedM && getPosition(2,1,2).getBelegung().isRed() == isRedM){
 				muehleID = 3;
 				muehleList.add(muehleID);}
 		}
-		if(positionen[0][2][1].getBelegung() != null && positionen[1][2][1].getBelegung() != null && positionen[2][2][1].getBelegung() != null ){
-			if(positionen[0][2][1].getBelegung().isRed() == isRedM && positionen[1][2][1].getBelegung().isRed() == isRedM && positionen[2][2][1].getBelegung().isRed() == isRedM){
+		if(getPosition(0,2,1).getBelegung() != null && getPosition(1,2,1).getBelegung() != null && getPosition(2,2,1).getBelegung() != null ){
+			if(getPosition(0,2,1).getBelegung().isRed() == isRedM && getPosition(1,2,1).getBelegung().isRed() == isRedM && getPosition(2,2,1).getBelegung().isRed() == isRedM){
 				muehleID = 4; 
 				muehleList.add(muehleID);}		
 		}
@@ -362,7 +370,7 @@ public class Spielfeld implements Initializable {
 		
 		return false;
 	}
-	*/
+	
 	public Position getPosition(int ebene, int x, int y){
 		
 		for(Position p: pos){
