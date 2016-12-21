@@ -158,10 +158,10 @@ public class Spielfeld implements Initializable {
             		}
             		
                 	if(isMuehle(true)){
-                		System.out.println("Muehle Rot");
+                		System.out.println("Muehle ROT");
                 	}
                 	if(isMuehle(false)){
-                		System.out.println("Muehle Gruen");
+                		System.out.println("Muehle GRUEN");
                 	}
                 	
             		break;
