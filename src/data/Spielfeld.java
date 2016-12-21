@@ -141,10 +141,7 @@ public class Spielfeld implements Initializable {
 	            				if(movePos().size() == 0)
 	            					posSelStein = null;
 	            				else{
-	            					System.out.println("\nselected "+posSelStein.toString());
-	            					for(Position p: movePos()){
-	            						System.out.println(p);
-	            					}
+	            					System.out.println("\nStone selected");
 	            				}
 	            				break;
 	            			}
@@ -153,7 +150,6 @@ public class Spielfeld implements Initializable {
             		
             		//1.2 Verschieben auf ausgewählte Position
             		else{
-            			System.out.println("Verschieben beginnt!");
             			verschieben(t);
             		}
             		break;
@@ -175,7 +171,6 @@ public class Spielfeld implements Initializable {
 					if(p.equals(pos[i])){	
 						move(pos[i]);
 					
-						System.out.println("Position geändert!");
 						break outerloop;
 					}
 				}
@@ -270,8 +265,6 @@ public class Spielfeld implements Initializable {
 			if(pos[i].getBelegung() == null && pos[i].isInRange(t.getX(), t.getY())){
     		
 				int index = gridSel.getChildren().size()-1;
-					
-				System.out.println(pos[i]);
 				
 				pos[i].setBelegung(sel.get(index));
 					
