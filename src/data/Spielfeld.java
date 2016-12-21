@@ -149,14 +149,12 @@ public class Spielfeld implements Initializable {
             		//1.2 Verschieben auf ausgewählte Position
             		else{
             			verschieben(t);
-            		
-                	if(isMuehle(true)){
-                		System.out.println("Muehle ROT");
-                	}
-                	if(isMuehle(false)){
-                		System.out.println("Muehle GRUEN");
-                	}
+            			
+                    	if(isMuehle(!isRedTurn))
+                    		System.out.println("Mühle");
+                    	
             		}
+                	
             		break;
             		
             	case 2: 
