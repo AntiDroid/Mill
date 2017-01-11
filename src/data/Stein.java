@@ -5,6 +5,10 @@ import javafx.scene.image.ImageView;
 
 public class Stein extends ImageView {
 	
+	private int id;
+	
+	static private int idCounter = 0;
+	
     static Image imageG = new Image("file:res/img/grun.png");
     static Image imageR = new Image("file:res/img/rot.png");
 	
@@ -21,6 +25,8 @@ public class Stein extends ImageView {
 		
 		this.isRed = isR;
 		this.isThree = false;
+		this.id = idCounter;
+		idCounter++;
 	}
 
 	public static Image getImageG() {
@@ -53,6 +59,25 @@ public class Stein extends ImageView {
 
 	public void setThree(boolean isThree) {
 		this.isThree = isThree;
+	}
+
+	public int getID() {
+		return id;
+	}
+
+	public void setID(int id) {
+		this.id = id;
+	}
+	
+	public boolean equals(Object o){
+	
+		if(o instanceof Stein){
+			Stein x = (Stein) o;
+		
+			return (this.id == x.id) && (this.isRed == x.isRed);
+		}
+
+		return super.equals(o);
 	}
 	
 }

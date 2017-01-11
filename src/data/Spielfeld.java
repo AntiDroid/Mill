@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.animation.TranslateTransition;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.util.Duration;
 
 public class Spielfeld implements Initializable {
 
@@ -31,6 +33,8 @@ public class Spielfeld implements Initializable {
 	private GridPane greenGridSel;
 	@FXML
 	private GridPane redGridSel;
+	
+	private boolean muehle = false;
 
 	List<Stein> greenSel = new ArrayList<Stein>();
 	List<Stein> redSel = new ArrayList<Stein>();
@@ -93,8 +97,8 @@ public class Spielfeld implements Initializable {
             public void handle(MouseEvent t) {
             	
             	//Defintion des jeweiligen Teams und seiner Daten
-            	GridPane gridSel = null;
-            	List<Stein> sel = null;
+            	GridPane gridSel;
+            	List<Stein> sel;
             	
             	if(isRedTurn){
             		gridSel = redGridSel;
@@ -106,11 +110,11 @@ public class Spielfeld implements Initializable {
             	}
             	
             	//Statusdefinition
-        		if(!gridSel.getChildren().isEmpty())
-        			state = 0;
-        		else if (isMuehle(!isRedTurn)){
+        		if (muehle){
         			state = 2;
         		}
+            	else if(!gridSel.getChildren().isEmpty())
+        			state = 0;
         		else {
         			state = 1;
         		}
@@ -120,10 +124,8 @@ public class Spielfeld implements Initializable {
             	
             	case 0: 
             		anfangsphase(gridSel, sel, t);
-
-                	isMuehle(true);
-                	isMuehle(false);
             		
+            		muehle = isMuehle(!isRedTurn);
             		break;
             		
             	case 1:
@@ -136,7 +138,7 @@ public class Spielfeld implements Initializable {
 	                			
 	            				posSelStein = pos[i];
 	            				
-	            				if(movePos().size() == 0)
+	            				if(movePoss().size() == 0)
 	            					posSelStein = null;
 	            				else{
 	            					System.out.println("\nStone selected");
@@ -150,29 +152,28 @@ public class Spielfeld implements Initializable {
             		else{
             			verschieben(t);
             			
-                    	if(isMuehle(!isRedTurn))
-                    		System.out.println("Mühle");
-                    	
+            			muehle = isMuehle(!isRedTurn);
             		}
                 	
             		break;
             		
             	case 2: 
-            		
+
 	            	for(int i = 0; i < pos.length; i++){
 	            			
 	            		//wenn das Feld belegt ist und der Klick auf das Feld war
 	            		if(pos[i].getBelegung() != null && pos[i].getBelegung().isRed() == isRedTurn && pos[i].isInRange(t.getX(), t.getY()) && pos[i].getBelegung().isRed() == isRedTurn){
 	            				
 	            			sel.remove(pos[i].getBelegung());
+	            			mainPane.getChildren().remove(pos[i].getBelegung());
 	            			pos[i].setBelegung(null);
+	            			muehle = false;
 	            			
 	            			break;
 	            		}
 	            	}
-            		
+
             		break;
-            		
             	}
             }
         });
@@ -182,9 +183,9 @@ public class Spielfeld implements Initializable {
 
 		outerloop: for (int i = 0; i < pos.length; i++) {
 
-			// wenn das Feld leer ist und ausgewählt wurde
+			// wenn das Feld ausgewählt wurde
 			if (pos[i].isInRange(t.getX(), t.getY())) {
-				for (Position p : movePos()) {
+				for (Position p : movePoss()) {
 
 					if (p.equals(pos[i])) {
 						move(pos[i]);
@@ -200,7 +201,7 @@ public class Spielfeld implements Initializable {
 		isRedTurn = !isRedTurn;
 	}
 
-	public ArrayList<Position> movePos() {
+	public ArrayList<Position> movePoss() {
 
 		ArrayList<Position> movePoss = new ArrayList<Position>();
 
@@ -265,10 +266,18 @@ public class Spielfeld implements Initializable {
 
 		int destX = (int) p.getKoordX();
 		int destY = (int) p.getKoordY();
-
+		
+	    TranslateTransition tt = new TranslateTransition(Duration.millis(500), posSelStein.getBelegung());
+	    tt.setByX(destX - curX);
+	    tt.setByY(destY - curY);
+	    tt.setAutoReverse(true);
+	
+	    tt.play();
+	     
+		/*
 		posSelStein.getBelegung().setLayoutX(destX);
 		posSelStein.getBelegung().setLayoutY(destY);
-
+	    */
 		p.setBelegung(posSelStein.getBelegung());
 		posSelStein.setBelegung(null);
 
@@ -279,7 +288,6 @@ public class Spielfeld implements Initializable {
 	public void anfangsphase(GridPane gridSel, List<Stein> sel, MouseEvent t) {
 
 		for (int i = 0; i < pos.length; i++) {
-
 			if (pos[i].getBelegung() == null && pos[i].isInRange(t.getX(), t.getY())) {
 
 				int index = gridSel.getChildren().size() - 1;
@@ -307,6 +315,7 @@ public class Spielfeld implements Initializable {
 	}
 
 	public boolean isMuehle(boolean isRedM) {
+		
 		int muehleID = 0;
 		ArrayList<Integer> muehleList;
 		if (isRedM)
