@@ -151,6 +151,7 @@ public class Spielfeld implements Initializable {
 	            					posSelStein = null;
 	            				else{
 	            					System.out.println("\nStone selected");
+	            					posSelStein.getBelegung().setOpacity(0.8);
 	            				}
 	            				break;
 	            			}
@@ -161,6 +162,11 @@ public class Spielfeld implements Initializable {
             		else{
             			verschieben(t);
             			
+            			for(Position p: pos){
+            				if(p.getBelegung() != null){
+            					p.getBelegung().setThree(false);
+            				}
+            			}
             			muehle = isMuehle(!isRedTurn);
             		}
                 	
@@ -169,10 +175,12 @@ public class Spielfeld implements Initializable {
             	case 2: 
 
 	            	for(int i = 0; i < pos.length; i++){
-	            			
+	      		
 	            		//wenn das Feld belegt ist und der Klick auf das Feld war
-	            		if(pos[i].getBelegung() != null && pos[i].getBelegung().isRed() == isRedTurn && pos[i].isInRange(t.getX(), t.getY()) && pos[i].getBelegung().isRed() == isRedTurn){
-	            				
+	            		if(pos[i].getBelegung() != null && pos[i].getBelegung().isRed() == isRedTurn 
+	            				&& pos[i].isInRange(t.getX(), t.getY()) 
+	            				&& !pos[i].getBelegung().isThree()){
+	            			
 	            			sel.remove(pos[i].getBelegung());
 	            			mainPane.getChildren().remove(pos[i].getBelegung());
 	            			pos[i].setBelegung(null);
@@ -214,9 +222,7 @@ public class Spielfeld implements Initializable {
 						break outerloop;
 					}
 				}
-
 			}
-
 		}
 
 		isRedTurn = !isRedTurn;
@@ -288,20 +294,16 @@ public class Spielfeld implements Initializable {
 		int destX = (int) p.getKoordX();
 		int destY = (int) p.getKoordY();
 		
-	    TranslateTransition tt = new TranslateTransition(Duration.millis(500), posSelStein.getBelegung());
+	    TranslateTransition tt = new TranslateTransition(Duration.millis(300), posSelStein.getBelegung());
 	    tt.setByX(destX - curX);
 	    tt.setByY(destY - curY);
 	    tt.setAutoReverse(true);
 	
 	    tt.play();
-	     
-		/*
-		posSelStein.getBelegung().setLayoutX(destX);
-		posSelStein.getBelegung().setLayoutY(destY);
-	    */
-		p.setBelegung(posSelStein.getBelegung());
-		posSelStein.setBelegung(null);
 
+		p.setBelegung(posSelStein.getBelegung());
+		posSelStein.getBelegung().setOpacity(1);
+		posSelStein.setBelegung(null);
 		posSelStein = null;
 
 	}
@@ -327,14 +329,6 @@ public class Spielfeld implements Initializable {
 		}
 	}
 
-	public Position getPosSelStein() {
-		return posSelStein;
-	}
-
-	public void setPosSelStein(Position posSelStein) {
-		this.posSelStein = posSelStein;
-	}
-
 	public boolean isMuehle(boolean isRedM) {
 		
 		int muehleID = 0;
@@ -349,79 +343,39 @@ public class Spielfeld implements Initializable {
 
 		// Muehlen in gleicher Ebene
 		for (int e = 0; e < 3; e++) {
-			if (getPosition(e, 0, 0).getBelegung() != null && getPosition(e, 0, 1).getBelegung() != null
-					&& getPosition(e, 0, 2).getBelegung() != null) {
-				if (getPosition(e, 0, 0).getBelegung().isRed() == isRedM
-						&& getPosition(e, 0, 1).getBelegung().isRed() == isRedM
-						&& getPosition(e, 0, 2).getBelegung().isRed() == isRedM) {
-					muehleID = 10 + e;
-					muehleList.add(muehleID);
-				}
+			if(isThree(e, 0, 0, 0, 0, 1, isRedM)){
+				muehleID = 10 + e;
+				muehleList.add(muehleID);
 			}
-			if (getPosition(e, 0, 0).getBelegung() != null && getPosition(e, 1, 0).getBelegung() != null
-					&& getPosition(e, 2, 0).getBelegung() != null) {
-				if (getPosition(e, 0, 0).getBelegung().isRed() == isRedM
-						&& getPosition(e, 1, 0).getBelegung().isRed() == isRedM
-						&& getPosition(e, 2, 0).getBelegung().isRed() == isRedM) {
-					muehleID = 20 + e;
-					muehleList.add(muehleID);
-				}
+			if(isThree(e, 0, 0, 0, 1, 0, isRedM)){
+				muehleID = 20 + e;
+				muehleList.add(muehleID);
 			}
-			if (getPosition(e, 2, 0).getBelegung() != null && getPosition(e, 2, 1).getBelegung() != null
-					&& getPosition(e, 2, 2).getBelegung() != null) {
-				if (getPosition(e, 2, 0).getBelegung().isRed() == isRedM
-						&& getPosition(e, 2, 1).getBelegung().isRed() == isRedM
-						&& getPosition(e, 2, 2).getBelegung().isRed() == isRedM) {
-					muehleID = 30 + e;
-					muehleList.add(muehleID);
-				}
+			if(isThree(e, 2, 0, 0, 0, 1, isRedM)){
+				muehleID = 30 + e;
+				muehleList.add(muehleID);
 			}
-			if (getPosition(e, 0, 2).getBelegung() != null && getPosition(e, 1, 2).getBelegung() != null
-					&& getPosition(e, 2, 2).getBelegung() != null) {
-				if (getPosition(e, 0, 2).getBelegung().isRed() == isRedM
-						&& getPosition(e, 1, 2).getBelegung().isRed() == isRedM
-						&& getPosition(e, 2, 2).getBelegung().isRed() == isRedM) {
-					muehleID = 40 + e;
-					muehleList.add(muehleID);
-				}
+			if(isThree(e, 0, 2, 0, 1, 0, isRedM)){
+				muehleID = 40 + e;
+				muehleList.add(muehleID);
 			}
 		}
 		// Muehlen auf dem Fadenkreuz
-		if (getPosition(0, 1, 0).getBelegung() != null && getPosition(1, 1, 0).getBelegung() != null
-				&& getPosition(2, 1, 0).getBelegung() != null) {
-			if (getPosition(0, 1, 0).getBelegung().isRed() == isRedM
-					&& getPosition(1, 1, 0).getBelegung().isRed() == isRedM
-					&& getPosition(2, 1, 0).getBelegung().isRed() == isRedM) {
-				muehleID = 1;
-				muehleList.add(muehleID);
-			}
+		if(isThree(0, 1, 0, 1, 0, 0, isRedM)){
+			muehleID = 1;
+			muehleList.add(muehleID);
 		}
-		if (getPosition(0, 0, 1).getBelegung() != null && getPosition(1, 0, 1).getBelegung() != null
-				&& getPosition(2, 0, 1).getBelegung() != null) {
-			if (getPosition(0, 0, 1).getBelegung().isRed() == isRedM
-					&& getPosition(1, 0, 1).getBelegung().isRed() == isRedM
-					&& getPosition(2, 0, 1).getBelegung().isRed() == isRedM) {
-				muehleID = 2;
-				muehleList.add(muehleID);
-			}
+		if(isThree(0, 0, 1, 1, 0, 0, isRedM)){		
+			muehleID = 2;
+			muehleList.add(muehleID);
 		}
-		if (getPosition(0, 1, 2).getBelegung() != null && getPosition(1, 1, 2).getBelegung() != null
-				&& getPosition(2, 1, 2).getBelegung() != null) {
-			if (getPosition(0, 1, 2).getBelegung().isRed() == isRedM
-					&& getPosition(1, 1, 2).getBelegung().isRed() == isRedM
-					&& getPosition(2, 1, 2).getBelegung().isRed() == isRedM) {
-				muehleID = 3;
-				muehleList.add(muehleID);
-			}
+		if(isThree(0, 1, 2, 1, 0, 0, isRedM)){	
+			muehleID = 3;
+			muehleList.add(muehleID);
 		}
-		if (getPosition(0, 2, 1).getBelegung() != null && getPosition(1, 2, 1).getBelegung() != null
-				&& getPosition(2, 2, 1).getBelegung() != null) {
-			if (getPosition(0, 2, 1).getBelegung().isRed() == isRedM
-					&& getPosition(1, 2, 1).getBelegung().isRed() == isRedM
-					&& getPosition(2, 2, 1).getBelegung().isRed() == isRedM) {
-				muehleID = 4;
-				muehleList.add(muehleID);
-			}
+		if(isThree(0, 2, 1, 1, 0, 0, isRedM)){
+			muehleID = 4;
+			muehleList.add(muehleID);
 		}
 
 		if (isRedM)
@@ -438,6 +392,50 @@ public class Spielfeld implements Initializable {
 		return false;
 	}
 
+	/**
+	 * Vereinfachung des isMuehle-Codes
+	 * @param ebene Ebenenstart-Wert
+	 * @param x X-Startwerte
+	 * @param y Y- Startwert
+	 * @param inkrEbene Schritterhoehung der Ebene
+	 * @param inkrX Schritterhoehung der X
+	 * @param inkrY Schritterhoehung der Y
+	 * @param isRed Spieler
+	 * @return ob ein Spieler hier eine dreier Reihe hat
+	 */
+	public boolean isThree(int ebene, int x, int y, int inkrEbene, int inkrX, int inkrY, boolean isRed){
+		
+		// ist es eine dreier Reihe - Schleife
+		for(int i = 0; i < 3; i++){
+			if(getPosition(ebene, x, y).getBelegung() == null){
+				return false;
+			}
+			if(getPosition(ebene, x, y).getBelegung().isRed() != isRed){
+				return false;
+			}
+			
+			ebene += inkrEbene;
+			x += inkrX;
+			y += inkrY;
+		}
+		
+		ebene -= inkrEbene;
+		x -= inkrX;
+		y -= inkrY;
+		
+		// dreier Reihe mit Three markieren
+		for(int i = 0; i < 3; i++){
+			
+			getPosition(ebene, x, y).getBelegung().setThree(true);
+			
+			ebene -= inkrEbene;
+			x -= inkrX;
+			y -= inkrY;
+		}
+		
+		return true;
+	}
+	
 	public Position getPosition(int ebene, int x, int y) {
 
 		for (Position p : pos) {
