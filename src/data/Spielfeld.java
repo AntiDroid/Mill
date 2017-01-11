@@ -38,7 +38,7 @@ public class Spielfeld implements Initializable {
 	private GridPane greenGridSel;
 	@FXML
 	private GridPane redGridSel;
-	
+
 	private boolean muehle = false;
 
 	List<Stein> greenSel = new ArrayList<Stein>();
@@ -57,25 +57,25 @@ public class Spielfeld implements Initializable {
 
 	@Override // This method is called by the FXMLLoader when initialization is complete
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
-    	
+
 		state = 0;
 
     	assert greenGridSel != null : "fx:id=\"greenGridSel\" was not injected: check your FXML file 'GUI.fxml'.";
     	assert redGridSel != null : "fx:id=\"redGridSel\" was not injected: check your FXML file 'GUI.fxml'.";
-    	
+
         assert mainPane != null : "fx:id=\"mainPane\" was not injected: check your FXML file 'GUI.fxml'.";
 
         // initialize your logic here: all @FXML variables will have been injected
-        
+
         feld.setImage(imageF);
 
         for(int i = 0; i<10; i++){
         	greenSel.add(new Stein(false));
         	redSel.add(new Stein(true));
         }
-        
+
         int x = 0;
-        
+
         for(int i = 0; i<5; i++){
         	for(int j = 0; j < 2; j++){
         		if(i == 4 && j == 1)
@@ -84,9 +84,9 @@ public class Spielfeld implements Initializable {
         		x++;
         	}
         }
-        
+
         x = 0;
-        
+
         for(int i = 0; i < 5; i++){
         	for(int j = 0; j < 2; j++){
         		if(i == 4 && j == 0)
@@ -100,24 +100,20 @@ public class Spielfeld implements Initializable {
 
             @Override
             public void handle(MouseEvent t) {
-            	
+
             	//Defintion des jeweiligen Teams und seiner Daten
             	GridPane gridSel;
             	List<Stein> sel;
-            	
+
             	if(isRedTurn){
-            		name1.setText("Spieler 1");
-            		name2.setText("SPIELER 2");
             		gridSel = redGridSel;
             		sel = redSel;
             	}
             	else{
-            		name1.setText("SPIELER 1");
-            		name2.setText("Spieler 2");
             		gridSel = greenGridSel;
             		sel = greenSel;
             	}
-            	
+
             	//Statusdefinition
         		if (muehle){
         			state = 2;
@@ -127,26 +123,27 @@ public class Spielfeld implements Initializable {
         		else {
         			state = 1;
         		}
-        		
+
         		//Abhandlung je nach Status
             	switch(state){
-            	
-            	case 0: 
+
+            	case 0:
             		anfangsphase(gridSel, sel, t);
-            		
+
             		muehle = isMuehle(!isRedTurn);
+
             		break;
-            		
+
             	case 1:
             		//1.1 auswahl des steins
             		if(posSelStein == null){
 	            		for(int i = 0; i < pos.length; i++){
-	            			
+
 	            			//wenn das Feld belegt ist und der Klick auf das Feld war
 	            			if(pos[i].getBelegung() != null && pos[i].getBelegung().isRed() == isRedTurn && pos[i].isInRange(t.getX(), t.getY())){
-	                			
+
 	            				posSelStein = pos[i];
-	            				
+
 	            				if(movePoss().size() == 0)
 	            					posSelStein = null;
 	            				else{
@@ -157,11 +154,11 @@ public class Spielfeld implements Initializable {
 	            			}
 	            		}
             		}
-            		
+
             		//1.2 Verschieben auf ausgewählte Position
             		else{
             			verschieben(t);
-            			
+
             			for(Position p: pos){
             				if(p.getBelegung() != null){
             					p.getBelegung().setThree(false);
@@ -169,30 +166,30 @@ public class Spielfeld implements Initializable {
             			}
             			muehle = isMuehle(!isRedTurn);
             		}
-                	
+
             		break;
-            		
-            	case 2: 
+
+            	case 2:
 
 	            	for(int i = 0; i < pos.length; i++){
-	      		
+
 	            		//wenn das Feld belegt ist und der Klick auf das Feld war
-	            		if(pos[i].getBelegung() != null && pos[i].getBelegung().isRed() == isRedTurn 
-	            				&& pos[i].isInRange(t.getX(), t.getY()) 
+	            		if(pos[i].getBelegung() != null && pos[i].getBelegung().isRed() == isRedTurn
+	            				&& pos[i].isInRange(t.getX(), t.getY())
 	            				&& !pos[i].getBelegung().isThree()){
-	            			
+
 	            			sel.remove(pos[i].getBelegung());
 	            			mainPane.getChildren().remove(pos[i].getBelegung());
 	            			pos[i].setBelegung(null);
 	            			muehle = false;
-	            			
+
 	            			break;
 	            		}
 	            	}
 
             		break;
             	}
-            	
+
             	if(!muehle){
             		if(isRedTurn){
             			name1.setText("Spieler 1");
@@ -204,7 +201,7 @@ public class Spielfeld implements Initializable {
             		}
             	}
             }
-           
+
         });
     }
 
@@ -293,12 +290,12 @@ public class Spielfeld implements Initializable {
 
 		int destX = (int) p.getKoordX();
 		int destY = (int) p.getKoordY();
-		
+
 	    TranslateTransition tt = new TranslateTransition(Duration.millis(300), posSelStein.getBelegung());
 	    tt.setByX(destX - curX);
 	    tt.setByY(destY - curY);
 	    tt.setAutoReverse(true);
-	
+
 	    tt.play();
 
 		p.setBelegung(posSelStein.getBelegung());
@@ -330,7 +327,7 @@ public class Spielfeld implements Initializable {
 	}
 
 	public boolean isMuehle(boolean isRedM) {
-		
+
 		int muehleID = 0;
 		ArrayList<Integer> muehleList;
 		if (isRedM)
@@ -365,11 +362,11 @@ public class Spielfeld implements Initializable {
 			muehleID = 1;
 			muehleList.add(muehleID);
 		}
-		if(isThree(0, 0, 1, 1, 0, 0, isRedM)){		
+		if(isThree(0, 0, 1, 1, 0, 0, isRedM)){
 			muehleID = 2;
 			muehleList.add(muehleID);
 		}
-		if(isThree(0, 1, 2, 1, 0, 0, isRedM)){	
+		if(isThree(0, 1, 2, 1, 0, 0, isRedM)){
 			muehleID = 3;
 			muehleList.add(muehleID);
 		}
@@ -404,7 +401,7 @@ public class Spielfeld implements Initializable {
 	 * @return ob ein Spieler hier eine dreier Reihe hat
 	 */
 	public boolean isThree(int ebene, int x, int y, int inkrEbene, int inkrX, int inkrY, boolean isRed){
-		
+
 		// ist es eine dreier Reihe - Schleife
 		for(int i = 0; i < 3; i++){
 			if(getPosition(ebene, x, y).getBelegung() == null){
@@ -413,29 +410,29 @@ public class Spielfeld implements Initializable {
 			if(getPosition(ebene, x, y).getBelegung().isRed() != isRed){
 				return false;
 			}
-			
+
 			ebene += inkrEbene;
 			x += inkrX;
 			y += inkrY;
 		}
-		
+
 		ebene -= inkrEbene;
 		x -= inkrX;
 		y -= inkrY;
-		
+
 		// dreier Reihe mit Three markieren
 		for(int i = 0; i < 3; i++){
-			
+
 			getPosition(ebene, x, y).getBelegung().setThree(true);
-			
+
 			ebene -= inkrEbene;
 			x -= inkrX;
 			y -= inkrY;
 		}
-		
+
 		return true;
 	}
-	
+
 	public Position getPosition(int ebene, int x, int y) {
 
 		for (Position p : pos) {
