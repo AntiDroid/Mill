@@ -11,15 +11,14 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import java.util.ArrayList?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="data.Spielfeld">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="data.Spielfeld">
 	<left>
 		<VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="115.0" BorderPane.alignment="CENTER">
 			<children>
-				<Label alignment="CENTER" text="Spieler 1" textAlignment="CENTER">
+				<Label fx:id="name1" alignment="CENTER" text="Spieler 1" textAlignment="CENTER">
 					<font>
-						<Font name="System Bold" size="12.0" />
+						<Font name="System Bold" size="18.0" />
 					</font>
 				</Label>
 				<GridPane fx:id="greenGridSel" prefHeight="360.0" prefWidth="100.0">
@@ -50,9 +49,9 @@
 	<right>
 		<VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="115.0" BorderPane.alignment="CENTER">
 			<children>
-				<Label alignment="CENTER" text="Spieler 2">
+				<Label fx:id="name2" alignment="CENTER" text="Spieler 2">
 					<font>
-						<Font name="System Bold" size="12.0" />
+						<Font name="System Bold" size="18.0" />
 					</font>
 				</Label>
 				<GridPane fx:id="redGridSel" prefHeight="360.0" prefWidth="100.0">

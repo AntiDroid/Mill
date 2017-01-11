@@ -9,6 +9,7 @@ import javafx.animation.TranslateTransition;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -27,6 +28,10 @@ public class Spielfeld implements Initializable {
 
 	@FXML
 	private Pane mainPane;
+	@FXML
+	private Label name1;
+	@FXML
+	private Label name2;
 	@FXML
 	private ImageView feld;
 	@FXML
@@ -90,7 +95,7 @@ public class Spielfeld implements Initializable {
         		x++;
         	}
         }
-
+        name2.setText("SPIELER 2");
         mainPane.setOnMouseClicked(new EventHandler<MouseEvent>(){
 
             @Override
@@ -101,10 +106,14 @@ public class Spielfeld implements Initializable {
             	List<Stein> sel;
             	
             	if(isRedTurn){
+            		name1.setText("Spieler 1");
+            		name2.setText("SPIELER 2");
             		gridSel = redGridSel;
             		sel = redSel;
             	}
             	else{
+            		name1.setText("SPIELER 1");
+            		name2.setText("Spieler 2");
             		gridSel = greenGridSel;
             		sel = greenSel;
             	}
@@ -175,7 +184,19 @@ public class Spielfeld implements Initializable {
 
             		break;
             	}
+            	
+            	if(!muehle){
+            		if(isRedTurn){
+            			name1.setText("Spieler 1");
+            			name2.setText("SPIELER 2");
+            		}
+            		else{
+            			name1.setText("SPIELER 1");
+            			name2.setText("Spieler 2");
+            		}
+            	}
             }
+           
         });
     }
 
