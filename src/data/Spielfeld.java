@@ -157,7 +157,11 @@ public class Spielfeld implements Initializable {
 
             		//1.2 Verschieben auf ausgewählte Position
             		else{
-            			verschieben(t);
+            			
+            			if(sel.size() < 4)
+            				springen(t);
+            			else
+            				verschieben(t);
 
             			for(Position p: pos){
             				if(p.getBelegung() != null){
@@ -214,11 +218,28 @@ public class Spielfeld implements Initializable {
 				for (Position p : movePoss()) {
 
 					if (p.equals(pos[i])) {
-						move(pos[i]);
+						move(pos[i], true);
 
 						break outerloop;
 					}
 				}
+			}
+		}
+	}
+	
+	public void springen(MouseEvent t) {
+
+		outerloop: for (int i = 0; i < pos.length; i++) {
+
+			// wenn das Feld ausgewählt wurde
+			if (pos[i].isInRange(t.getX(), t.getY())) {
+					
+					if (pos[i].getBelegung() == null) {
+						move(pos[i], false);
+
+						break outerloop;
+					}
+				
 			}
 		}
 	}
@@ -281,7 +302,7 @@ public class Spielfeld implements Initializable {
 		return movePoss;
 	}
 
-	public void move(Position p) {
+	public void move(Position p, boolean animation) {
 
 		int curX = (int) posSelStein.getBelegung().getLayoutX();
 		int curY = (int) posSelStein.getBelegung().getLayoutY();
@@ -289,16 +310,23 @@ public class Spielfeld implements Initializable {
 		int destX = (int) p.getKoordX();
 		int destY = (int) p.getKoordY();
 
-	    TranslateTransition tt = new TranslateTransition(Duration.millis(300), posSelStein.getBelegung());
-	    
-	    if(curY == destY)
-	    	tt.setByX(destX - curX);
-	    else if(curX == destX)
-	    	tt.setByY(destY - curY);
-	    
-	    tt.setAutoReverse(true);
-
-	    tt.play();
+		
+		if(animation){
+		    TranslateTransition tt = new TranslateTransition(Duration.millis(300), posSelStein.getBelegung());
+		    
+		    if(curY == destY)
+		    	tt.setByX(destX - curX);
+		    else if(curX == destX)
+		    	tt.setByY(destY - curY);
+		    
+		    tt.setAutoReverse(true);
+	
+		    tt.play();
+		}
+		else{
+			posSelStein.getBelegung().setLayoutX(destX);
+			posSelStein.getBelegung().setLayoutY(destY);
+		}
 
 		p.setBelegung(posSelStein.getBelegung());
 		posSelStein.getBelegung().setOpacity(1);
