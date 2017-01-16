@@ -162,8 +162,6 @@ public class Spielfeld implements Initializable {
             				springen(t);
             			else
             				verschieben(t);
-
-            			System.out.println(isRedTurn+": "+sel.size());
             			
             			for(Position p: pos){
             				if(p.getBelegung() != null){
@@ -225,7 +223,7 @@ public class Spielfeld implements Initializable {
 				for (Position p : movePoss()) {
 
 					if (p.equals(pos[i])) {
-						move(pos[i], false);
+						move(pos[i], true);
 
 						break outerloop;
 					}
@@ -245,8 +243,7 @@ public class Spielfeld implements Initializable {
 						move(pos[i], false);
 
 						break outerloop;
-					}
-				
+					}	
 			}
 		}
 	}
@@ -300,7 +297,6 @@ public class Spielfeld implements Initializable {
 									movePoss.add(n);
 							}
 						}
-
 					}
 				}
 			}
@@ -316,18 +312,21 @@ public class Spielfeld implements Initializable {
 
 		int destX = (int) p.getKoordX();
 		int destY = (int) p.getKoordY();
-
 		
 		if(animation){
 		    TranslateTransition tt = new TranslateTransition(Duration.millis(300), posSelStein.getBelegung());
 		    
-		    if(curY == destY)
-		    	tt.setByX(destX - curX);
-		    else if(curX == destX)
-		    	tt.setByY(destY - curY);
-		    
-		    tt.setAutoReverse(true);
-	
+		    if(curY == destY){
+		    	//tt.setByX(destX - curX);
+		    	tt.setToX(destX-curX);
+		    }
+		    else if(curX == destX){
+		    	//tt.setByY(destY - curY);
+		    	tt.setToY(destY-curY);
+		    }
+		   
+		    System.out.println(tt.getFromX());
+		    System.out.println(tt.getFromY());
 		    tt.play();
 		}
 		else{
