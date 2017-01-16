@@ -190,7 +190,7 @@ public class Spielfeld implements Initializable {
             		break;
             	}
 
-            	if(!muehle){
+            	if(!muehle && posSelStein == null){
             		if(isRedTurn){
             			name1.setText("Spieler 1");
             			name2.setText("SPIELER 2");
@@ -221,8 +221,6 @@ public class Spielfeld implements Initializable {
 				}
 			}
 		}
-
-		isRedTurn = !isRedTurn;
 	}
 
 	public ArrayList<Position> movePoss() {
@@ -292,8 +290,12 @@ public class Spielfeld implements Initializable {
 		int destY = (int) p.getKoordY();
 
 	    TranslateTransition tt = new TranslateTransition(Duration.millis(300), posSelStein.getBelegung());
-	    tt.setByX(destX - curX);
-	    tt.setByY(destY - curY);
+	    
+	    if(curY == destY)
+	    	tt.setByX(destX - curX);
+	    else if(curX == destX)
+	    	tt.setByY(destY - curY);
+	    
 	    tt.setAutoReverse(true);
 
 	    tt.play();
@@ -302,7 +304,8 @@ public class Spielfeld implements Initializable {
 		posSelStein.getBelegung().setOpacity(1);
 		posSelStein.setBelegung(null);
 		posSelStein = null;
-
+		
+		isRedTurn = !isRedTurn;
 	}
 
 	public void anfangsphase(GridPane gridSel, List<Stein> sel, MouseEvent t) {
