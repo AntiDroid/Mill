@@ -2,6 +2,7 @@ package data;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -121,9 +122,6 @@ public class Spielfeld implements Initializable {
         			state = 0;
         		else
         			state = 1;
-        		
-        		if(sel.size() < 4)
-        			state = 10;
 
         		//Abhandlung je nach Status
             	switch(state){
@@ -149,7 +147,7 @@ public class Spielfeld implements Initializable {
 	            					posSelStein = null;
 	            				else
 	            					posSelStein.getBelegung().setOpacity(0.8);
-	            				
+
 	            				break;
 	            			}
 	            		}
@@ -157,12 +155,12 @@ public class Spielfeld implements Initializable {
 
             		//1.2 Verschieben auf ausgewählte Position
             		else{
-            			
+
             			if(sel.size() < 5)
             				springen(t);
             			else
             				verschieben(t);
-            			
+
             			for(Position p: pos){
             				if(p.getBelegung() != null){
             					p.getBelegung().setThree(false);
@@ -174,6 +172,8 @@ public class Spielfeld implements Initializable {
             		break;
 
             	case 2:
+
+            		isMuehle(isRedTurn);
 
 	            	for(int i = 0; i < pos.length; i++){
 
@@ -192,11 +192,6 @@ public class Spielfeld implements Initializable {
 	            	}
 
             		break;
-            		
-            	case 10:
-            		
-            		System.out.println("Spiel vorbei");
-            		System.out.println(isRedTurn+" hat verloren!");
             	}
 
             	if(!muehle && posSelStein == null){
@@ -208,6 +203,11 @@ public class Spielfeld implements Initializable {
             			name1.setText("SPIELER 1");
             			name2.setText("Spieler 2");
             		}
+            	}
+
+            	if(sel.size() < 4){
+            		System.out.println("Spiel vorbei");
+            		System.out.println(isRedTurn+" hat verloren!");
             	}
             }
 
@@ -222,8 +222,8 @@ public class Spielfeld implements Initializable {
 			if (pos[i].isInRange(t.getX(), t.getY())) {
 				for (Position p : movePoss()) {
 
-					if (p.equals(pos[i])) {
-						move(pos[i], true);
+					if (p.equals(pos[i]) && !pos[i].equals(posSelStein)) {
+						move(pos[i]);
 
 						break outerloop;
 					}
@@ -231,19 +231,42 @@ public class Spielfeld implements Initializable {
 			}
 		}
 	}
-	
+
+	public void move(Position p) {
+
+		double curX = posSelStein.getKoordX();
+		double curY = posSelStein.getKoordY();
+
+		double destX = p.getKoordX();
+		double destY = p.getKoordY();
+
+		TranslateTransition tt = new TranslateTransition(Duration.millis(300), posSelStein.getBelegung());
+
+		tt.setByX(destX-curX);
+		tt.setByY(destY-curY);
+
+		tt.play();
+
+		p.setBelegung(posSelStein.getBelegung());
+		posSelStein.getBelegung().setOpacity(1);
+		posSelStein.setBelegung(null);
+		posSelStein = null;
+
+		isRedTurn = !isRedTurn;
+	}
+
 	public void springen(MouseEvent t) {
 
 		outerloop: for (int i = 0; i < pos.length; i++) {
 
 			// wenn das Feld ausgewählt wurde
 			if (pos[i].isInRange(t.getX(), t.getY())) {
-					
+
 					if (pos[i].getBelegung() == null) {
-						move(pos[i], false);
+						move(pos[i]);
 
 						break outerloop;
-					}	
+					}
 			}
 		}
 	}
@@ -305,43 +328,6 @@ public class Spielfeld implements Initializable {
 		return movePoss;
 	}
 
-	public void move(Position p, boolean animation) {
-
-		int curX = (int) posSelStein.getBelegung().getLayoutX();
-		int curY = (int) posSelStein.getBelegung().getLayoutY();
-
-		int destX = (int) p.getKoordX();
-		int destY = (int) p.getKoordY();
-		
-		if(animation){
-		    TranslateTransition tt = new TranslateTransition(Duration.millis(300), posSelStein.getBelegung());
-		    
-		    if(curY == destY){
-		    	//tt.setByX(destX - curX);
-		    	tt.setToX(destX-curX);
-		    }
-		    else if(curX == destX){
-		    	//tt.setByY(destY - curY);
-		    	tt.setToY(destY-curY);
-		    }
-		   
-		    System.out.println(tt.getFromX());
-		    System.out.println(tt.getFromY());
-		    tt.play();
-		}
-		else{
-			posSelStein.getBelegung().setLayoutX(destX);
-			posSelStein.getBelegung().setLayoutY(destY);
-		}
-
-		p.setBelegung(posSelStein.getBelegung());
-		posSelStein.getBelegung().setOpacity(1);
-		posSelStein.setBelegung(null);
-		posSelStein = null;
-		
-		isRedTurn = !isRedTurn;
-	}
-
 	public void anfangsphase(GridPane gridSel, List<Stein> sel, MouseEvent t) {
 
 		for (int i = 0; i < pos.length; i++) {
@@ -367,6 +353,7 @@ public class Spielfeld implements Initializable {
 
 		int muehleID = 0;
 		ArrayList<Integer> muehleList;
+
 		if (isRedM)
 			muehleList = redMuehleList;
 		else
