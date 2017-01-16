@@ -115,14 +115,15 @@ public class Spielfeld implements Initializable {
             	}
 
             	//Statusdefinition
-        		if (muehle){
+        		if (muehle)
         			state = 2;
-        		}
             	else if(!gridSel.getChildren().isEmpty())
         			state = 0;
-        		else {
+        		else
         			state = 1;
-        		}
+        		
+        		if(sel.size() < 4)
+        			state = 10;
 
         		//Abhandlung je nach Status
             	switch(state){
@@ -146,10 +147,9 @@ public class Spielfeld implements Initializable {
 
 	            				if(movePoss().size() == 0)
 	            					posSelStein = null;
-	            				else{
-	            					System.out.println("\nStone selected");
+	            				else
 	            					posSelStein.getBelegung().setOpacity(0.8);
-	            				}
+	            				
 	            				break;
 	            			}
 	            		}
@@ -158,11 +158,13 @@ public class Spielfeld implements Initializable {
             		//1.2 Verschieben auf ausgewählte Position
             		else{
             			
-            			if(sel.size() < 4)
+            			if(sel.size() < 5)
             				springen(t);
             			else
             				verschieben(t);
 
+            			System.out.println(isRedTurn+": "+sel.size());
+            			
             			for(Position p: pos){
             				if(p.getBelegung() != null){
             					p.getBelegung().setThree(false);
@@ -192,6 +194,11 @@ public class Spielfeld implements Initializable {
 	            	}
 
             		break;
+            		
+            	case 10:
+            		
+            		System.out.println("Spiel vorbei");
+            		System.out.println(isRedTurn+" hat verloren!");
             	}
 
             	if(!muehle && posSelStein == null){
@@ -218,7 +225,7 @@ public class Spielfeld implements Initializable {
 				for (Position p : movePoss()) {
 
 					if (p.equals(pos[i])) {
-						move(pos[i], true);
+						move(pos[i], false);
 
 						break outerloop;
 					}
