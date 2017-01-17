@@ -21,39 +21,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-		try{
-
-		do{
-		name1 = JOptionPane.showInputDialog(null, "Enter your name!",
-                "BLACK",
-                JOptionPane.PLAIN_MESSAGE);
-
-		if(name1.equals(""))
-			throw new NullPointerException();
-
-		}while(!name1.matches("\\w+"));
-
-		}
-		catch(NullPointerException n){
-			name1 = "Player 1";
-		}
-
-		try{
-
-		do{
-		name2 = JOptionPane.showInputDialog(null, "Enter your name!",
-                "WHITE",
-                JOptionPane.PLAIN_MESSAGE);
-
-		if(name2.equals(""))
-			throw new NullPointerException();
-
-		}while(name2.equals("") || !name2.matches("\\w+") || name2.equals(name1));
-
-		}
-		catch(NullPointerException n){
-			name2 = "Player 2";
-		}
+		namenAngeben();
 
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Mill");
@@ -103,5 +71,40 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
+    }
+    
+    private void namenAngeben(){
+    	try{
+    		do{
+    		name1 = JOptionPane.showInputDialog(null, "Enter your name!",
+                    "Spieler 1",
+                    JOptionPane.PLAIN_MESSAGE);
+
+    		if(name1.equals(""))
+    			throw new NullPointerException();
+
+    		}while(!name1.matches("\\w+"));
+
+    		}
+    		catch(NullPointerException n){
+    			name1 = "Player 1";
+    		}
+
+    		try{
+
+    		do{
+    		name2 = JOptionPane.showInputDialog(null, "Enter your name!",
+                    "Spieler 2",
+                    JOptionPane.PLAIN_MESSAGE);
+
+    		if(name2.equals(""))
+    			throw new NullPointerException();
+
+    		}while(name2.equals("") || !name2.matches("\\w+") || name2.equals(name1));
+
+    		}
+    		catch(NullPointerException n){
+    			name2 = "Player 2";
+    		}
     }
 }

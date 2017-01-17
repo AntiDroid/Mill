@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import application.Main;
 import javafx.animation.TranslateTransition;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -16,10 +17,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 public class Spielfeld implements Initializable {
-
+	
 	private int state;
 	private Position posSelStein = null;
 	private static ArrayList<Integer> redMuehleList = new ArrayList<Integer>();
@@ -58,7 +60,10 @@ public class Spielfeld implements Initializable {
 
 	@Override // This method is called by the FXMLLoader when initialization is complete
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
-
+		
+	    name1.setText(Main.name1);
+	    name2.setText(Main.name2);
+		
 		state = 0;
 
     	assert greenGridSel != null : "fx:id=\"greenGridSel\" was not injected: check your FXML file 'GUI.fxml'.";
@@ -96,7 +101,6 @@ public class Spielfeld implements Initializable {
         		x++;
         	}
         }
-        name2.setText("SPIELER 2");
         mainPane.setOnMouseClicked(new EventHandler<MouseEvent>(){
 
             @Override
@@ -196,12 +200,12 @@ public class Spielfeld implements Initializable {
 
             	if(!muehle && posSelStein == null){
             		if(isRedTurn){
-            			name1.setText("Spieler 1");
-            			name2.setText("SPIELER 2");
+            			name1.setTextFill(Color.GREY);
+            			name2.setTextFill(Color.BLACK);
             		}
             		else{
-            			name1.setText("SPIELER 1");
-            			name2.setText("Spieler 2");
+            			name1.setTextFill(Color.BLACK);
+            			name2.setTextFill(Color.GREY);
             		}
             	}
 
