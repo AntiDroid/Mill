@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-
 public class DBManager 
 {
 	Connection conn;
@@ -22,10 +21,12 @@ public class DBManager
 	public void addBenutzer(String benutzername, int punktezahl) throws SQLException 
 	{
 		ArrayList<String> names = new ArrayList<String>();
-		for(Benutzer b: viewBenutzer()){
+		for(Benutzer b : viewBenutzer())
+		{
 			names.add(b.getBenutzername());
 		}
-		if(!names.contains(benutzername)){
+		if(!names.contains(benutzername))
+		{
 			String sql = "INSERT INTO Benutzer VALUES(?, ?)";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setString(1, benutzername);
@@ -39,8 +40,8 @@ public class DBManager
 	{
 		int punkte = 0;
 		Statement s = conn.createStatement();
-		ResultSet rs = s.executeQuery("SELECT * FROM Benutzer WHERE Benutzername = '"+benutzername+"'");
-		while (rs.next()) 
+		ResultSet rs = s.executeQuery("SELECT * FROM Benutzer WHERE Benutzername = '" + benutzername + "'");
+		while(rs.next()) 
 		{
 			punkte = rs.getInt(2);
 		}
@@ -83,7 +84,8 @@ public class DBManager
 	{
 		DBManager db = new DBManager();
 		db.addBenutzer("orcun", 1000);
-		db.addPoints("orcun", 555);
+		db.addPoints("orcun", 5000);
+		
 		for(Benutzer b : db.viewBenutzer())
 		{
 			System.out.print(b.getBenutzername() + " ");
