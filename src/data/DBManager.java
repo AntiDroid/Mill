@@ -9,7 +9,8 @@ public class DBManager
 {
 	Connection conn;
 	
-	public DBManager() throws ClassNotFoundException, SQLException {
+	public DBManager() throws ClassNotFoundException, SQLException 
+	{
 		Class.forName("com.mysql.jdbc.Driver");
 		conn = DriverManager.getConnection("jdbc:mysql://localhost/rankingsystem", "root", "");
 	}
