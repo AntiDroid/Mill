@@ -34,7 +34,8 @@ public class DBManager
 		stmt.close();
 	}
 	
-	public void close() throws SQLException {
+	public void close() throws SQLException 
+	{
 		conn.close();
 	}
 }
