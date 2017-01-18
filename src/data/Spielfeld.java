@@ -237,8 +237,7 @@ public class Spielfeld implements Initializable {
             	}
 
             	if(sel.size() < 4){
-            		System.out.println("Spiel vorbei");
-            		System.out.println(isRedTurn+" hat verloren!");
+            		System.out.println("Spiel vorbei!");
             		
             		try {
         			    DBManager db = new DBManager();
@@ -266,7 +265,6 @@ public class Spielfeld implements Initializable {
     			    ArrayList<Benutzer> liste = db.viewBenutzer();
     			    
     			    data = new Object [liste.size()][2];
-    			    System.out.println(liste.size());
     			    
     			    for(int i = 0; i < liste.size(); i++){
     			    	
