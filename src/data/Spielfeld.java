@@ -2,7 +2,6 @@ package data;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -11,6 +10,7 @@ import javafx.animation.TranslateTransition;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -41,7 +41,9 @@ public class Spielfeld implements Initializable {
 	private GridPane greenGridSel;
 	@FXML
 	private GridPane redGridSel;
-
+	@FXML
+	private Button highscore;
+	
 	private boolean muehle = false;
 
 	List<Stein> greenSel = new ArrayList<Stein>();
@@ -215,6 +217,16 @@ public class Spielfeld implements Initializable {
             	}
             }
 
+        });
+        
+        highscore.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent event) {
+				
+				System.out.println("Highscoreliste");
+			}
+        	
         });
     }
 
