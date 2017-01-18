@@ -47,7 +47,7 @@ public class DBManager
 	{
 		ArrayList<Benutzer> listBenutzer = new ArrayList<Benutzer>();
 		java.sql.Statement s = conn.createStatement();
-		ResultSet rs = s.executeQuery("SELECT * FROM Benutzer");
+		ResultSet rs = s.executeQuery("SELECT * FROM Benutzer ORDER BY DESC Punktezahl");
 		
 		while(rs.next()) 
 		{

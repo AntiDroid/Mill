@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
 import application.Main;
 import javafx.animation.TranslateTransition;
 import javafx.event.EventHandler;
@@ -21,6 +24,8 @@ import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 public class Spielfeld implements Initializable {
+	
+	
 	
 	private int state;
 	private Position posSelStein = null;
@@ -65,6 +70,14 @@ public class Spielfeld implements Initializable {
 		
 	    name1.setText(Main.name1);
 	    name2.setText(Main.name2);
+	    
+	    try {
+		    DBManager db = new DBManager();
+		    db.addBenutzer(Main.name1, 0);
+		    db.addBenutzer(Main.name2, 0);
+		} catch (Exception e) {
+			System.out.println("Could not establish connection to the Database :(");
+		}
 		
 		state = 0;
 
@@ -224,7 +237,14 @@ public class Spielfeld implements Initializable {
 			@Override
 			public void handle(MouseEvent event) {
 				
-				System.out.println("Highscoreliste");
+				
+				JFrame frame = new JFrame("Highscores");
+
+				JLabel label = new JLabel("Hello World");
+				frame.getContentPane().add(label);
+
+				frame.pack();
+				frame.setVisible(true);
 			}
         	
         });
