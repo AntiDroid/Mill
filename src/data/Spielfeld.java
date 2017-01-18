@@ -236,6 +236,14 @@ public class Spielfeld implements Initializable {
             	if(sel.size() < 4){
             		System.out.println("Spiel vorbei");
             		System.out.println(isRedTurn+" hat verloren!");
+            		
+            		try {
+        			    DBManager db = new DBManager();
+        			    if(isRedTurn) db.addPoints(playerName1, 30);
+        			    if(!isRedTurn) db.addPoints(playerName2, 30);
+        			    db.close();
+        			} catch (Exception e){}
+            		
             	}
             }
 
