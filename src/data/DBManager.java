@@ -83,8 +83,8 @@ public class DBManager
 	public static void main(String[] args) throws ClassNotFoundException, SQLException
 	{
 		DBManager db = new DBManager();
-		db.addBenutzer("orcun", 1000);
-		db.addPoints("orcun", 5000);
+		db.addBenutzer("Orcun", 1000);
+		db.addPoints("Michl", 5000);
 		
 		for(Benutzer b : db.viewBenutzer())
 		{

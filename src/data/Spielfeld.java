@@ -259,7 +259,7 @@ public class Spielfeld implements Initializable {
     			    DBManager db = new DBManager();
     			    for(Benutzer b: db.viewBenutzer()){
     			    	highscore += b.getBenutzername()+" ";
-    			    	highscore += b.getPunktezahl()+"/n";
+    			    	highscore += b.getPunktezahl()+" \n";
     			    }
     			    db.close();
     			} catch (Exception e){}
@@ -267,6 +267,7 @@ public class Spielfeld implements Initializable {
 				JFrame frame = new JFrame("Highscores");
 
 				JLabel label = new JLabel(highscore);
+				label.setSize(500, 500);
 				frame.getContentPane().add(label);
 
 				frame.pack();
