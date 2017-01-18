@@ -1,12 +1,14 @@
 package data;
 
+import java.awt.BorderLayout;
+import java.awt.Font;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import application.Main;
@@ -254,31 +256,36 @@ public class Spielfeld implements Initializable {
 
 			@Override
 			public void handle(MouseEvent event) {
-				String[] columnNames = {"Spieler", "Punkte"};
-				Object[][] data;
 				
+				String[] columnNames = {"Spieler", "Punkte"};
+				Object[][] data = null;
 				String highscore = "";
 				
 				try {
     			    DBManager db = new DBManager();
-    			    for(Benutzer b: db.viewBenutzer()){
-    			    	highscore += b.getBenutzername()+" ";
-    			    	highscore += b.getPunktezahl()+" \n";
+    			    
+    			    ArrayList<Benutzer> liste = db.viewBenutzer();
+    			    
+    			    data = new Object [2][liste.size()];
+    			    for(int i = 0; i < liste.size(); i++){
+    			    	
+    			    	data[0][i] = liste.get(i).getBenutzername();
+    			    	data[1][i] = liste.get(i).getPunktezahl();
     			    }
+    			    
     			    db.close();
+    			    
     			} catch (Exception e){}
 				
 				JFrame frame = new JFrame("Highscores");
+			    JTable table = new JTable(data, columnNames);
+			    table.setFont(new Font("Arial", Font.PLAIN, 20));
+			    
+			    JScrollPane scrollPane = new JScrollPane(table);
+			    frame.add(scrollPane, BorderLayout.CENTER);
+			    frame.setSize(300, 150);
+			    frame.setVisible(true);
 
-				final JTable table = new JTable(data, columnNames);
-				table.setPreferredScrollableViewportSize(new Dimension(500, 70));
-				table.setFillsViewportHeight(true);
-				JLabel label = new JLabel(highscore);
-				label.setSize(500, 500);
-				frame.getContentPane().add(label);
-
-				frame.pack();
-				frame.setVisible(true);
 			}
         	
         });
