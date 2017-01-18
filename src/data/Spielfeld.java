@@ -262,7 +262,8 @@ public class Spielfeld implements Initializable {
 				try {
     			    DBManager db = new DBManager();
     			    for(Benutzer b: db.viewBenutzer()){
-    			    	
+    			    	highscore += b.getBenutzername()+" ";
+    			    	highscore += b.getPunktezahl()+" \n";
     			    }
     			    db.close();
     			} catch (Exception e){}
@@ -272,6 +273,9 @@ public class Spielfeld implements Initializable {
 				final JTable table = new JTable(data, columnNames);
 				table.setPreferredScrollableViewportSize(new Dimension(500, 70));
 				table.setFillsViewportHeight(true);
+				JLabel label = new JLabel(highscore);
+				label.setSize(500, 500);
+				frame.getContentPane().add(label);
 
 				frame.pack();
 				frame.setVisible(true);
