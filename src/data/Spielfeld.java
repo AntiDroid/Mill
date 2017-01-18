@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JTable;
 
 import application.Main;
 import javafx.animation.TranslateTransition;
@@ -253,21 +254,24 @@ public class Spielfeld implements Initializable {
 
 			@Override
 			public void handle(MouseEvent event) {
+				String[] columnNames = {"Spieler", "Punkte"};
+				Object[][] data;
+				
 				String highscore = "";
 				
 				try {
     			    DBManager db = new DBManager();
     			    for(Benutzer b: db.viewBenutzer()){
-    			    	highscore += b.getBenutzername()+" ";
-    			    	highscore += b.getPunktezahl()+"/n";
+    			    	
     			    }
     			    db.close();
     			} catch (Exception e){}
 				
 				JFrame frame = new JFrame("Highscores");
 
-				JLabel label = new JLabel(highscore);
-				frame.getContentPane().add(label);
+				final JTable table = new JTable(data, columnNames);
+				table.setPreferredScrollableViewportSize(new Dimension(500, 70));
+				table.setFillsViewportHeight(true);
 
 				frame.pack();
 				frame.setVisible(true);
