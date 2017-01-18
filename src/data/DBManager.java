@@ -59,4 +59,15 @@ public class DBManager
 	{
 		conn.close();
 	}
+	
+	public static void main(String[] args) throws ClassNotFoundException, SQLException
+	{
+		DBManager db = new DBManager();
+		db.addBenutzer("Michl", 5000);
+		for(Benutzer b: db.viewBenutzer()){
+			System.out.print(b.getBenutzername()+" ");
+			System.out.println(b.getPunktezahl());
+		}
+		
+	}
 }
