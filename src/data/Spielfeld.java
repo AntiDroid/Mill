@@ -25,8 +25,6 @@ import javafx.util.Duration;
 
 public class Spielfeld implements Initializable {
 	
-	
-	
 	private int state;
 	private Position posSelStein = null;
 	private static ArrayList<Integer> redMuehleList = new ArrayList<Integer>();
@@ -68,13 +66,17 @@ public class Spielfeld implements Initializable {
 	@Override // This method is called by the FXMLLoader when initialization is complete
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
 		
-	    name1.setText(Main.name1);
-	    name2.setText(Main.name2);
+		String playerName1 = Main.name1;
+		String playerName2 = Main.name2;
+		
+	    name1.setText(playerName1);
+	    name2.setText(playerName2);
 	    
 	    try {
 		    DBManager db = new DBManager();
 		    db.addBenutzer(Main.name1, 0);
 		    db.addBenutzer(Main.name2, 0);
+		    db.close();
 		} catch (Exception e) {
 			System.out.println("Could not establish connection to the Database :(");
 		}
@@ -205,6 +207,13 @@ public class Spielfeld implements Initializable {
 	            			mainPane.getChildren().remove(pos[i].getBelegung());
 	            			pos[i].setBelegung(null);
 	            			muehle = false;
+	            			
+	            			try {
+	            			    DBManager db = new DBManager();
+	            			    if(!isRedTurn) db.addPoints(playerName1, 5);
+	            			    if(isRedTurn) db.addPoints(playerName2, 5);
+	            			    db.close();
+	            			} catch (Exception e){}
 
 	            			break;
 	            		}
@@ -236,11 +245,20 @@ public class Spielfeld implements Initializable {
 
 			@Override
 			public void handle(MouseEvent event) {
+				String highscore = "";
 				
+				try {
+    			    DBManager db = new DBManager();
+    			    for(Benutzer b: db.viewBenutzer()){
+    			    	highscore += b.getBenutzername()+" ";
+    			    	highscore += b.getPunktezahl()+"/n";
+    			    }
+    			    db.close();
+    			} catch (Exception e){}
 				
 				JFrame frame = new JFrame("Highscores");
 
-				JLabel label = new JLabel("Hello World");
+				JLabel label = new JLabel(highscore);
 				frame.getContentPane().add(label);
 
 				frame.pack();
