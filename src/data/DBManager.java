@@ -5,7 +5,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+
 
 public class DBManager 
 {
@@ -33,11 +35,21 @@ public class DBManager
 		}
 	}
 	
-	public void changePoints(String benutzername, int punktezahl) throws SQLException
+	public void addPoints(String benutzername, int punktezahl) throws SQLException
 	{
+		int punkte = 0;
+		Statement s = conn.createStatement();
+		ResultSet rs = s.executeQuery("SELECT * FROM Benutzer WHERE Benutzername = '"+benutzername+"'");
+		while (rs.next()) 
+		{
+			punkte = rs.getInt(2);
+		}
+		
+		punkte += punktezahl;
+		
 		String sql = "UPDATE Benutzer SET Punktezahl = ? WHERE Benutzername = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setInt(1, punktezahl);
+		stmt.setInt(1, punkte);
 		stmt.setString(2, benutzername);
 		stmt.executeUpdate();
 		stmt.close();
@@ -61,6 +73,7 @@ public class DBManager
 		return listBenutzer;
 	}
 	
+	
 	public void close() throws SQLException 
 	{
 		conn.close();
@@ -69,7 +82,8 @@ public class DBManager
 	public static void main(String[] args) throws ClassNotFoundException, SQLException
 	{
 		DBManager db = new DBManager();
-		db.addBenutzer("tuli", 80000);
+		db.addBenutzer("orcun", 1000);
+		db.addPoints("orcun", 555);
 		for(Benutzer b : db.viewBenutzer())
 		{
 			System.out.print(b.getBenutzername() + " ");
