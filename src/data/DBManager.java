@@ -47,7 +47,7 @@ public class DBManager
 	{
 		ArrayList<Benutzer> listBenutzer = new ArrayList<Benutzer>();
 		java.sql.Statement s = conn.createStatement();
-		ResultSet rs = s.executeQuery("SELECT * FROM Benutzer ORDER BY DESC Punktezahl");
+		ResultSet rs = s.executeQuery("SELECT * FROM Benutzer ORDER BY Punktezahl DESC");
 		
 		while(rs.next()) 
 		{
@@ -69,7 +69,7 @@ public class DBManager
 	public static void main(String[] args) throws ClassNotFoundException, SQLException
 	{
 		DBManager db = new DBManager();
-		db.addBenutzer("kkk", 5000);
+		db.addBenutzer("tuli", 80000);
 		for(Benutzer b : db.viewBenutzer())
 		{
 			System.out.print(b.getBenutzername() + " ");
