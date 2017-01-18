@@ -3,7 +3,9 @@ package data;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class DBManager 
 {
@@ -33,6 +35,24 @@ public class DBManager
 		stmt.setString(2, benutzername);
 		stmt.executeUpdate();
 		stmt.close();
+	}
+	
+	public ArrayList<Benutzer> viewBenutzer() throws SQLException
+	{
+		ArrayList<Benutzer> listBenutzer = new ArrayList<Benutzer>();
+		java.sql.Statement s = conn.createStatement();
+		ResultSet rs = s.executeQuery("SELECT * FROM Benutzer");
+		
+		while(rs.next()) 
+		{
+			String benutzername = rs.getString(1);
+			int punktezahl = rs.getInt(2);
+			
+			Benutzer b = new Benutzer(benutzername, punktezahl);
+			listBenutzer.add(b);
+		}
+		
+		return listBenutzer;
 	}
 	
 	public void close() throws SQLException 
